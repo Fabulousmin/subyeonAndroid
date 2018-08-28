@@ -53,6 +53,11 @@ const MessageInput = (props) => {
     )
 }
 
+
+
+
+
+
 const styles = {
     containerStyle: {
         flexDirection: 'row',
