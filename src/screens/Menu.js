@@ -120,9 +120,20 @@ class Menu extends Component {
           icon: {type: 'font-awesome', name: 'sort-numeric-desc', color: '#b2bec3'},
           value: this.state.age,
           textInput: false
+        },
+        {
+          title: '현재위치',
+          icon: {type: 'font-awesome', name: 'location-arrow', color: '#b2bec3'},
+          value: this.state.city,
+          textInput: false
+        },
+        {
+          title: '동행',
+          icon: {type: 'font-awesome', name: 'users', color: '#b2bec3'},
+          value: this.state.number,
+          textInput: false
         }
       ]
-
       return(<List containerStyle={{marginBottom: 10}}>
                   {
           list.map((item) => (
@@ -130,76 +141,75 @@ class Menu extends Component {
               leftIcon={item.icon}
               key={item.title}
               title={item.title}
-              rightTitle={<Text >{item.value}</Text>}
+              rightTitle={<Text>{item.value}</Text>}
+              hideChevron
             />
           ))
           }
           </List>)
     }
 
+    _renderHeader() {
+      return (
+        <Header
+          leftComponent=
+          {<Icon
+            type='Ionicons'
+            name='arrow-back'
+            color='white'
+            onPress={()=>this.props.navigation.navigate('MainTab')}
+           />}
+          centerComponent=
+          {
+           <Text style={{color:'white', fontWeight:'600'}}>설정</Text>
+          }
+          rightComponent={
+            <Text onPress={() => this._onSaveButtonPress()} style={{color:'white'}}>저장</Text>
+          }
+          backgroundColor='#74b9ff'
+        />
+      )
+    }
 
+    _renderProfileImg() {
+      return(<ImageBackground
+        source={this.state.profileUrl ? {uri:this.state.profileUrl} : require('../img/default.png')}
+       style={{width:width, height: 300, flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}
+      >
+        <View
+         style={{marginRight: 20, marginBottom:20}}
+        >
+          <Button
+            title='사진변경'
+            leftIcon={{type:'font-awesome', name:'user'}}
+            backgroundColor='#00cec9'
+            borderRadius={10}
+            onPress={this._imagePick.bind(this)}
+          />
+        </View>
+      </ImageBackground>)
+    }
 
-
+    _renderLogoutButton(){
+      return(<Button
+          containerViewStyle={styles.menuViewStyle}
+          buttonStyle={styles.buttonStyle}
+          backgroundColor='#fff'
+          color='#000000'
+          icon={{name: 'sign-out', type: 'font-awesome' , color: '#000000', size: 16}}
+          title='로그아웃'
+          onPress={this._onDisconnectButtonPress}
+      />)
+    }
     render() {
         return (
             <View style={styles.containerViewStyle}>
                 <Spinner visible={this.state.isLoading} />
-                <Header
-                  leftComponent=
-                  {<Icon
-                    type='Ionicons'
-                    name='arrow-back'
-                    color='white'
-                    onPress={()=>this.props.navigation.navigate('MainTab')}
-                   />}
-                  centerComponent=
-                  {
-                   <Text style={{color:'white', fontWeight:'600'}}>설정</Text>
-                  }
-                  rightComponent={
-                    <Text onPress={() => this._onSaveButtonPress()} style={{color:'white'}}>저장</Text>
-                  }
-                  backgroundColor='#74b9ff'
-                />
+                {this._renderHeader()}
                 <ScrollView>
-                  <ImageBackground
-                    source={this.state.profileUrl ? {uri:this.state.profileUrl} : require('../img/default.png')}
-                   style={{width:width, height: 300, flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}
-                  >
-                    <View
-                     style={{marginRight: 20, marginBottom:20}}
-                    >
-                      <Button
-                        title='사진변경'
-                        leftIcon={{type:'font-awesome', name:'user'}}
-                        backgroundColor='#00cec9'
-                        borderRadius={10}
-                        onPress={this._imagePick.bind(this)}
-                      />
-                    </View>
-                  </ImageBackground>
+                  {this._renderProfileImg()}
                   {this._renderList()}
-                  <Picker
-                    note
-                    mode="dropdown"
-                    style={{ width: 120 }}
-                    selectedValue={this.state.selected}
-                  >
-                    <Picker.Item label="Wallet" value="key0" />
-                    <Picker.Item label="ATM Card" value="key1" />
-                    <Picker.Item label="Debit Card" value="key2" />
-                    <Picker.Item label="Credit Card" value="key3" />
-                    <Picker.Item label="Net Banking" value="key4" />
-                  </Picker>
-                  <Button
-                      containerViewStyle={styles.menuViewStyle}
-                      buttonStyle={styles.buttonStyle}
-                      backgroundColor='#fff'
-                      color='#000000'
-                      icon={{name: 'sign-out', type: 'font-awesome' , color: '#000000', size: 16}}
-                      title='로그아웃'
-                      onPress={this._onDisconnectButtonPress}
-                  />
+                  {this._renderLogoutButton()}
                 </ScrollView>
             </View>
         )
