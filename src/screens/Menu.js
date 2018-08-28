@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, AsyncStorage, ScrollView, ImageBackground, Dimensions, Modal, TouchableOpacity } from 'react-native';
+import { View, AsyncStorage, ScrollView, ImageBackground, Dimensions, Modal, TouchableOpacity, Text } from 'react-native';
 import { Picker } from 'native-base'
 import { connect } from 'react-redux';
 import { sendbirdLogout, initMenu, fbLogOut, initProfile, getCurrentUserInfo, updateProfile, updateProfileWithoutImg } from '../actions';
@@ -9,7 +9,7 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import { NavigationActions } from 'react-navigation';
 import { HR, Spinner } from '../components';
-import { Header, Icon, Text, Button, ListItem, List } from 'react-native-elements';
+import { Header, Icon, Button, ListItem, List } from 'react-native-elements';
 
 const {width, height} = Dimensions.get('window')
 class Menu extends Component {
@@ -159,7 +159,7 @@ class Menu extends Component {
               leftIcon={item.icon}
               key={item.title}
               title={item.title}
-              rightTitle={item.value}
+              rightTitle={<Text>{item.value}</Text>}
               rightIcon={item.rightIcon}
               hideChevron={!item.amend}
               onPressRightIcon={item.amend ? item.onPress : null}
@@ -222,7 +222,7 @@ class Menu extends Component {
           color='#000000'
           icon={{name: 'sign-out', type: 'font-awesome' , color: '#000000', size: 16}}
           title='로그아웃'
-          onPress={this._onDisconnectButtonPress}
+          onPress={() => this._onDisconnectButtonPress}
       />)
     }
 
