@@ -139,13 +139,14 @@ static navigationOptions = ({ navigation }) => {
               key={channel.url}
               avatar={(
                   <Avatar
+                  rounded
                       source={channel.coverUrl ? { uri: channel.coverUrl } : require('../img/icon_sb_68.png')}
                   />
               )}
               title={channel.name.length > 30 ? channel.name.substring(0, 26) + '...' : channel.name}
-              titleStyle={{ fontWeight: '500', fontSize: 16 }}
+              titleStyle={{fontFamily:'BMHANNA_11yrs_ttf' ,fontWeight: '500', fontSize: 14 }}
               subtitle={channel.participantCount + ' Participant'}
-              subtitleStyle={{ fontWeight: '300', fontSize: 11 }}
+              subtitleStyle={{ fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '300', fontSize: 11 }}
               onPress={() => this._onListItemPress(channel.url)}
           />
       )
@@ -196,10 +197,7 @@ static navigationOptions = ({ navigation }) => {
       return (
           <View style={styles.renderTitleViewStyle}>
               <View style={{flexDirection: 'row'}}>
-                  <Text>{sbGetChannelTitle(channel)}</Text>
-                  <View style={styles.renderTitleMemberCountViewStyle}>
-                      <Text style={styles.renderTitleTextStyle}>{channel.memberCount}</Text>
-                  </View>
+                  <Text style={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:16}}>{sbGetChannelTitle(channel)}</Text>
               </View>
               <View>
                   <Text style={styles.renderTitleTextStyle}>
@@ -275,12 +273,12 @@ static navigationOptions = ({ navigation }) => {
       const channel = rowData.item;
       let swipeoutBtns = [
           {
-              text: 'Leave',
+              text: '나가기',
               type: 'delete',
               onPress: () => { this._onChannelLeave(channel.url) },
           },
           {
-              text: 'Hide',
+              text: '숨기기',
               type: 'default',
               onPress: () => { this._onChannelHide(channel.url) },
           }
@@ -295,11 +293,11 @@ static navigationOptions = ({ navigation }) => {
                   component={TouchableHighlight}
                   containerStyle={{backgroundColor: '#fff'}}
                   key={channel.url}
-                  avatar={<Avatar source={{uri: channel.coverUrl}} />}
+                  avatar={<Avatar rounded source={{uri: channel.coverUrl}} />}
                   title={this._renderTitle(channel)}
-                  titleStyle={{fontWeight: '500', fontSize: 16}}
+                  titleStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '500', fontSize: 16}}
                   subtitle={this._renderLastMessage(channel)}
-                  subtitleStyle={{fontWeight: '300', fontSize: 11}}
+                  subtitleStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '300', fontSize: 11}}
                   onPress={ () => this._ongListItemPress(channel.url) }
               />
           </Swipeout>
@@ -318,8 +316,7 @@ static navigationOptions = ({ navigation }) => {
         />
         <ScrollView>
           <View style={styles.divider}>
-            <Text h4 style={styles.title}>OpenChat</Text>
-            <Text style={styles.subtitle}>광안리에 있는 사람들과 소통해봐요</Text>
+            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20,color:'black'}}>오 픈 채 팅 방</Text>
           </View>
           <View>
               <Spinner visible={this.props.isLoading} />
@@ -334,8 +331,7 @@ static navigationOptions = ({ navigation }) => {
               />
           </View>
           <View style={styles.divider}>
-            <Text h4 style={styles.title}>1:1 Chat</Text>
-            <Text style={styles.subtitle}>일대일 채팅방</Text>
+            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20,color:'black'}}>1 : 1 채 팅</Text>
           </View>
           <View>
               <Spinner visible={this.props.groupChannel.isLoading} />
@@ -387,8 +383,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   divider: {
-    backgroundColor: '#dfe6e9',
-    paddingVertical: 8,
+    backgroundColor: '#FFFAFA',
+    paddingVertical: 9,
     alignItems: 'center'
   },
   title:{

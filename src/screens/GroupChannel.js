@@ -124,9 +124,8 @@ class GroupChannel extends Component {
         return (
             <View style={styles.renderTitleViewStyle}>
                 <View style={{flexDirection: 'row'}}>
-                    <Text>{sbGetChannelTitle(channel)}</Text>
+                    <Text style ={{fontFamily:'BMHANNA_11yrs_ttf'}}>{sbGetChannelTitle(channel)}</Text>
                     <View style={styles.renderTitleMemberCountViewStyle}>
-                        <Text style={styles.renderTitleTextStyle}>{channel.memberCount}</Text>
                     </View>
                 </View>
                 <View>

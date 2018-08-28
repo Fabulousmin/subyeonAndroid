@@ -1,19 +1,18 @@
 import SendBird from 'sendbird';
 
+
+
 export const sbGetChannelTitle = (channel) => {
     if (channel.isOpenChannel()) {
         return channel.name
     } else {
-        const { members } = channel;
+        const {members,inviter} = channel;
         let nicknames = members.map((member) => {
             return member.nickname
-        }).join(', ');
-        
-        if (nicknames.length > 21) {
-            nicknames = nicknames.substring(0, 17) + '...'
-        }
+        }).join(',');
+        const nicknameList = nicknames.split(',')
 
-        return nicknames;
+        return nicknameList[0];
     }
 }
 
@@ -42,7 +41,7 @@ export const sbAdjustMessageList = (list) => {
             if (message.isUserMessage() || message.isFileMessage()) {
                 if (prevMessage.isUserMessage() || prevMessage.isFileMessage()) {
                     if (prevMessage.sender.userId === message.sender.userId) {
-                        message.sender.isShow = false;  
+                        message.sender.isShow = false;
                     }
                 }
             }

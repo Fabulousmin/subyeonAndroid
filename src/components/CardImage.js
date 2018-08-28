@@ -9,8 +9,8 @@ const CardImage = ( props ) => {
               <Left>
                 <Thumbnail source={props.source} />
                 <Body>
-                  <Text>{props.nickname}</Text>
-                  <Text note>{props.sex},{props.number}명,{props.age}</Text>
+                  <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:19}}>{props.nickname}</Text>
+                  <Text style = {{fontFamily:'BMHANNA_11yrs_ttf'}} note>{props.sex},{props.number}명,{props.age}</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -18,7 +18,7 @@ const CardImage = ( props ) => {
               <Image source={props.source} style={{height: 300, width: null, flex: 1}}/>
             </CardItem>
             <CardItem>
-              <Text>{props.selfIntro}</Text>
+              <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:16}}>{props.selfIntro}</Text>
             </CardItem>
             <CardItem>
               <Left>
@@ -33,11 +33,11 @@ const CardImage = ( props ) => {
                   onPress={props.onpress}
                   >
                   <Icon active name="chatbubbles" />
-                  <Text>Message</Text>
+                  <Text style ={{fontFamily:'BMHANNA_11yrs_ttf'}}>Message</Text>
                 </Button>
               </Body>
               <Right>
-                <Text>{props.updatedAt}</Text>
+                <Text style ={{fontFamily:'BMHANNA_11yrs_ttf'}}>{props.updatedAt}</Text>
               </Right>
             </CardItem>
           </Card>
