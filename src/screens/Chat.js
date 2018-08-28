@@ -25,58 +25,19 @@ import { sbGetGroupChannel, sbGetOpenChannel, sbCreatePreviousMessageListQuery, 
 class Chat extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
-    const _renderInviteButton = () => {
-      return params.isOpenChannel ? null : (
-        <Button
-          containerViewStyle={{ marginLeft: 0, marginRight: 0 }}
-          buttonStyle={{ paddingLeft: 0, paddingRight: 0 }}
-          iconRight={{ name: "user-plus", type: "font-awesome", color: "#7d62d9", size: 18 }}
-          backgroundColor="transparent"
-          onPress={() => {
-            navigation.navigate("GroupChannelInvite", {
-              title: "Invite",
-              channelUrl: params.channelUrl
-            });
-          }}
-        />
-      );
-    };
     return {
-      title: `${params.title}(${params.memberCount})`,
+      title: `${params.title}`,
       headerLeft: (
         <Button
           containerViewStyle={{ marginLeft: 0, marginRight: 0 }}
           buttonStyle={{ paddingLeft: 14 }}
-          icon={{ name: "chevron-left", type: "font-awesome", color: "#7d62d9", size: 18 }}
+          icon={{ name: "chevron-left", type: "font-awesome", color: '#74b9ff', size: 18 }}
           backgroundColor="transparent"
           onPress={() => {
             params.handleHeaderLeft();
           }}
         />
       ),
-      headerRight: (
-        <View style={{ flexDirection: "row" }}>
-          {_renderInviteButton()}
-          <Button
-            containerViewStyle={{ marginLeft: 0, marginRight: 0 }}
-            buttonStyle={{ paddingLeft: 4, paddingRight: 4 }}
-            iconRight={{ name: "users", type: "font-awesome", color: "#7d62d9", size: 18 }}
-            backgroundColor="transparent"
-            onPress={() => {
-              navigation.navigate("Member", { isOpenChannel: params.isOpenChannel, channelUrl: params.channelUrl });
-            }}
-          />
-          <Button
-            containerViewStyle={{ marginLeft: 0, marginRight: 0 }}
-            buttonStyle={{ paddingLeft: 0, paddingRight: 14 }}
-            iconRight={{ name: "user-times", type: "font-awesome", color: "#7d62d9", size: 18 }}
-            backgroundColor="transparent"
-            onPress={() => {
-              navigation.navigate("BlockUser");
-            }}
-          />
-        </View>
-      )
     };
   };
 
@@ -292,9 +253,9 @@ class Chat extends Component {
     return isOpenChannel ? null : (
       <View style={styles.renderTypingViewStyle}>
         <View style={{ opacity: this.props.typing ? 1 : 0, marginRight: 8 }}>
-          <BarIndicator count={4} size={10} animationDuration={900} color="#cbd0da" />
+          <BarIndicator count={4} size={10} animationDuration={900} color="#7d62d9" />
         </View>
-        <Text style={{ color: "#cbd0da", fontSize: 10 }}>{this.props.typing}</Text>
+        <Text style={{ color: "#7d62d9", fontSize: 10 }}>{this.props.typing}</Text>
       </View>
     );
   };

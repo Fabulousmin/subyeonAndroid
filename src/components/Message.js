@@ -10,7 +10,7 @@ class Message extends Component {
 
     _renderMessageAvatar = () => {
         return this.props.isUser ? null : (
-            <MessageAvatar 
+            <MessageAvatar
                 isShow={this.props.isShow}
                 uri={this.props.profileUrl}
                 onPress={this.props.onPress}
@@ -23,7 +23,7 @@ class Message extends Component {
              <View style={styles.messageViewStyle}>
                 <View style={{flexDirection: this.props.isUser ? 'row-reverse' : 'row', paddingLeft: 14, paddingRight: 14, paddingTop: 4}}>
                     { this._renderMessageAvatar() }
-                    <MessageContainer 
+                    <MessageContainer
                         isShow={this.props.isShow}
                         isUser={this.props.isUser}
                         nickname={this.props.nickname}
@@ -40,14 +40,14 @@ class Message extends Component {
 const AdminMessage = (props) => {
     return (
         <View style={[
-                styles.messageViewStyle, 
+                styles.messageViewStyle,
                 {
-                    padding: 8, 
-                    marginTop: 8, 
-                    marginBottom: 8, 
+                    padding: 8,
+                    marginTop: 8,
+                    marginBottom: 8,
                     marginLeft: 14,
                     marginRight: 14,
-                    backgroundColor: '#e6e9f0'
+                    backgroundColor: '#74b9ff'
                 },
             ]}>
             <Text>{ props.message }</Text>

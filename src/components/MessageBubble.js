@@ -9,8 +9,8 @@ const _renderNickname = (nickname) => {
 
 const MessageBubble = (props) => {
     return (
-        <View style={{maxWidth: 250, padding: 8, borderRadius: 8, 
-        backgroundColor: props.isUser ? '#5F3DC4' : '#e6e6e6'}}>
+        <View style={{maxWidth: 250, padding: 8, borderRadius: 8,
+        backgroundColor: props.isUser ? '#74b9ff' : '#e6e6e6'}}>
             { props.isUser || !props.isShow ? null : _renderNickname(props.nickname) }
             <View style={{}}>
                 {props.message}

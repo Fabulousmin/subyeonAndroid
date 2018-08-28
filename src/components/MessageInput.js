@@ -45,7 +45,7 @@ const MessageInput = (props) => {
                 iconStyle={{margin: 0, padding: 0}}
                 name='envelope'
                 type='font-awesome'
-                color={props.textMessage.length > 0 ? '#7d62d9' : '#494e57'}
+                color={props.textMessage.length > 0 ? '#74b9ff' : '#494e57'}
                 size={20}
                 onPress={props.onRightPress}
             />
