@@ -13,5 +13,6 @@ export const UserList = () => {
       age
     });
   });
+    console.log('잠만보자',arr)
     return arr
 };

@@ -74,6 +74,7 @@ class ProfileInit3 extends Component {
         <View style ={styles.buttonContainer}>
           <Button
             title='다음'
+            textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '500', fontSize: 20}}
             backgroundColor= '#74b9ff'
             onPress={() => {
               const { sex, age } = this.props.navigation.state.params;

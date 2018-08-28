@@ -52,7 +52,9 @@ class ProfileInit1 extends Component {
         <View style ={styles.buttonContainer}>
           <Button
             title='다음'
+            textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '500', fontSize: 20}}
             backgroundColor= '#74b9ff'
+
             onPress={() => {
               this.props.navigation.navigate('ProfileInit2',
               { sex: this.state.selectedIndex }

@@ -102,6 +102,7 @@ class Login extends Component {
                           placeholder="user@email.com"
                           placeholderTextColor="rgba(255,255,255,0.5)"
                           autoCapitalize="none"
+                          inputStyle={{fontFamily:'BMHANNA_11yrs_ttf',color:'#FFFFFF'}}
                           returnKeyType="next"
                           keyboardType="email-address"
                           autoCorrect={false}
@@ -117,6 +118,7 @@ class Login extends Component {
                           placeholderTextColor="rgba(255,255,255,0.5)"
                           secureTextEntry
                           autoCapitalize="none"
+                          inputStyle={{fontFamily:'BMHANNA_11yrs_ttf',color:'#FFFFFF'}}
                           returnKeyType="next"
                           keyboardType="email-address"
                           autoCorrect={false}
@@ -129,33 +131,25 @@ class Login extends Component {
                   <View style={styles.buttonContainer}>
                       <Button
                         title='로그인'
+                        textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
                         onPress={this._onButtonPress}
                         disabled={this.state.isLoading}
                         borderRadius={5}
-                        fontWeight='600'
-                      />
-                      <Button
-                        title='페이스북으로 로그인'
-                        icon={{name:'logo-facebook', color:'white', type: 'ionicon'}}
-                        backgroundColor='#3b5998'
-                        onPress={this._onKakaoButtonPress.bind(this)}
-                        borderRadius={5}
-                        fontWeight='600'
                       />
                       <Button
                         title='카카오톡으로 로그인'
+                        textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20}}
                         backgroundColor='#fcd411'
                         onPress={this._onKakaoButtonPress.bind(this)}
                         borderRadius={5}
-                        fontWeight='600'
+
                       />
                   </View>
 
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
                 <View style={[styles.footerViewStyle]}>
-                    <Text style={styles.footerTextStyle}>수변팅</Text>
                 </View>
               </View>
           </KeyboardAvoidingView>

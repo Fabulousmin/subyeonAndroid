@@ -62,7 +62,6 @@ class List extends Component {
 
    onCreateButtonPress = (sendId) => {
     const inviteUserIdList = [sendId]
-    console.log('보자아이디',sendId)
     const arr=[];
     const currentuser  = firebase.auth().currentUser.uid
     const database = firebase.database();

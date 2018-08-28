@@ -63,7 +63,7 @@ export const sbUnregisterPushToken = () => {
     });
 };
 
-export const sbConnect = (userId, nickname) => {
+export const sbConnect = (userId, nickname,profileUrl) => {
     return new Promise((resolve, reject) => {
         if (!userId) {
             reject('UserID is required.');
@@ -93,17 +93,17 @@ export const sbConnect = (userId, nickname) => {
                         }
                     });
                 }
-                resolve(sbUpdateProfile(nickname));
+                resolve(sbUpdateProfile(nickname,profileUrl));
             }
         })
     })
 };
 
-export const sbUpdateProfile = (nickname) => {
+export const sbUpdateProfile = (nickname,profileUrl) => {
     return new Promise((resolve, reject) => {
         let sb = SendBird.getInstance();
         if(!sb) sb = new SendBird({'appId': APP_ID});
-        sb.updateCurrentUserInfo(nickname, null, (user, error) => {
+        sb.updateCurrentUserInfo(nickname,profileUrl,(user, error) => {
             if (error) {
                 reject('Update profile failed.')
             } else {

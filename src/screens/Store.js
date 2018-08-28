@@ -15,7 +15,7 @@ const renderRightButton = (dallars) => {
        style={{width:100, height:45, marginRight:15, borderWidth:1,  borderRadius: 10, borderColor: '#00cec9'
        ,alignItems: 'center', justifyContent: 'center'
     }}>
-      <Text style={{color: '#00cec9', fontSize: 15}}>US{dallars}$</Text>
+      <Text style={{fontFamily:'BMHANNA_11yrs_ttf',color: '#00cec9', fontSize: 15}}>US{dallars}$</Text>
       </View>
   )
 }
@@ -88,8 +88,7 @@ class Store extends Component {
         />
         <ScrollView>
           <View style={styles.divider}>
-            <Text h4 style={styles.title}>Heart Shop</Text>
-            <Text style={styles.subtitle}>매시지를 보내려면 하트가 필요해요</Text>
+            <Text style={{fontFamily:'BMHANNA_11yrs_ttf',color:'#FFFFFF',fontSize:17}}>매시지를 보내려면 하트가 필요해요</Text>
           </View>
           {
           list.map((item, i) => (
@@ -97,6 +96,7 @@ class Store extends Component {
             key={i}
             leftIcon={{type:'font-awesome', name: 'heart', color:'#74b9ff'}}
             title={item.name}
+            titleStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontSize: 17}}
             containerStyle={{paddingTop: 20, paddingBottom: 20, paddingLeft:10, borderBottomColor: '#dfe6e9'}}
             badge={{ element: item.element }}
             hideChevron
@@ -104,10 +104,6 @@ class Store extends Component {
           />
         ))
         }
-        <View style={styles.divider}>
-          <Text h4 style={styles.title}>Free Shop</Text>
-          <Text style={styles.subtitle}>무료로 아이템을 얻을 수 있는 방법</Text>
-        </View>
       </ScrollView>
     </View>
     );
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   divider: {
-    backgroundColor: '#dfe6e9',
+    backgroundColor: '#B0C4DE',
     paddingVertical: 10,
     alignItems: 'center'
   },

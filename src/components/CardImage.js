@@ -23,8 +23,6 @@ const CardImage = ( props ) => {
             <CardItem>
               <Left>
                 <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  {(props.numOfLikes > 0)? (<Text>{props.numOfLikes}</Text>):(<Text>like</Text>)}
                 </Button>
               </Left>
               <Body>

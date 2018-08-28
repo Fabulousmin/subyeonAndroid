@@ -15,8 +15,6 @@ class ProfileInit6 extends Component {
             profileImgData:'',
             selfIntro:'',
             sendId:'',
-            like:'',
-            liked:'',
             isLoading:false,
           }
 
@@ -63,16 +61,16 @@ class ProfileInit6 extends Component {
   async _updateProfile(){
     this.setState({isLoading: true});
     const { sex, age, city, number, nickname } = this.props.navigation.state.params;
-    const { profileUrl, selfIntro,sendId,like,liked } = this.state;
+    const { profileUrl, selfIntro,sendId,profileImgData } = this.state;
     if(profileUrl && selfIntro) {
     const userInfo = { sex, age, city, number, nickname, profileUrl, selfIntro, sendId, isProfile:'1', heart:10};
-    sbUpdateProfile(nickname);
+    sbUpdateProfile(nickname,profileImgData);
     await this.props.updateProfile(userInfo);}
     else{
     this.setState({isLoading: false});
     return
     }
-    sbUpdateProfile(nickname);
+    sbUpdateProfile(nickname,profileImgData);
   }
 
   componentDidMount() {
@@ -114,7 +112,7 @@ class ProfileInit6 extends Component {
           backgroundColor='transparent'
         />
         <View style = {styles.formContainer}>
-          <Text h4 >친구들과 함께찍은 사진을 올려주세요.</Text>
+          <Text h6 >수변공원에서 찍은 사진을 올려주세요.</Text>
           <Text style={{color:'#8395a7', marginBottom: 10}}>간단한 자기소개도 부탁드립니다.</Text>
           <Tile
             imageSrc={this.state.profileUrl ? {uri:this.state.profileUrl} : require('../img/default.png')}
@@ -133,6 +131,7 @@ class ProfileInit6 extends Component {
         <View style ={styles.buttonContainer}>
           <Button
             title='다음'
+            textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '500', fontSize: 20}}
             backgroundColor= '#74b9ff'
             onPress={() => this._updateProfile()}
           />

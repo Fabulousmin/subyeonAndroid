@@ -293,7 +293,7 @@ static navigationOptions = ({ navigation }) => {
                   component={TouchableHighlight}
                   containerStyle={{backgroundColor: '#fff'}}
                   key={channel.url}
-                  avatar={<Avatar rounded source={{uri: channel.coverUrl}} />}
+                  avatar={<Avatar rounded source={{uri:channel.members[0].profileUrl}} />}
                   title={this._renderTitle(channel)}
                   titleStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '500', fontSize: 16}}
                   subtitle={this._renderLastMessage(channel)}
@@ -316,7 +316,7 @@ static navigationOptions = ({ navigation }) => {
         />
         <ScrollView>
           <View style={styles.divider}>
-            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20,color:'black'}}>오 픈 채 팅 방</Text>
+            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:17,color:'#FFFFFF'}}>오 픈 채 팅 방</Text>
           </View>
           <View>
               <Spinner visible={this.props.isLoading} />
@@ -331,7 +331,7 @@ static navigationOptions = ({ navigation }) => {
               />
           </View>
           <View style={styles.divider}>
-            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20,color:'black'}}>1 : 1 채 팅</Text>
+            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:17,color:'#FFFFFF'}}>1 : 1 채 팅</Text>
           </View>
           <View>
               <Spinner visible={this.props.groupChannel.isLoading} />
@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   divider: {
-    backgroundColor: '#FFFAFA',
+    backgroundColor: '#B0C4DE',
     paddingVertical: 9,
     alignItems: 'center'
   },
