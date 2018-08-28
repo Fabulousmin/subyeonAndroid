@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, AsyncStorage, ScrollView, ImageBackground, Dimensions } from 'react-native';
+import { View, AsyncStorage, ScrollView, ImageBackground, Dimensions, Modal, TouchableOpacity } from 'react-native';
 import { Picker } from 'native-base'
 import { connect } from 'react-redux';
-import { sendbirdLogout, initMenu, fbLogOut, initProfile, getCurrentUserInfo, updateUserInfo } from '../actions';
+import { sendbirdLogout, initMenu, fbLogOut, initProfile, getCurrentUserInfo, updateProfile, updateProfileWithoutImg } from '../actions';
 import {
     sbUnregisterPushToken
   } from '../sendbirdActions';
@@ -11,9 +11,7 @@ import { NavigationActions } from 'react-navigation';
 import { HR, Spinner } from '../components';
 import { Header, Icon, Text, Button, ListItem, List } from 'react-native-elements';
 
-
 const {width, height} = Dimensions.get('window')
-
 class Menu extends Component {
   static navigationOptions = ({ navigation }) => {
     return {header: null}
@@ -23,12 +21,14 @@ class Menu extends Component {
             isLoading: false,
             profileUrl:'',
             profileImgData:'',
+            isProfileImgChanged:false,
             sex:'',
             age:'',
             selfIntro:'',
             city:'',
             number:'',
             nickname:'',
+            modal:null,
           }
 
           _imagePick() {
@@ -58,7 +58,8 @@ class Menu extends Component {
             else {
               this.setState({
                 profileUrl: response.uri,
-                profileImgData: response.data
+                profileImgData: response.data,
+                isProfileImgChanged: true
               })
             }
             });
@@ -71,7 +72,11 @@ class Menu extends Component {
     }
 
     componentWillReceiveProps(props) {
-      const { isDisconnected, userInfo } = props;
+      const { isDisconnected, userInfo, isSaved } = props;
+      if(isSaved){
+        this.setState({isLoading:false})
+        this.props.navigation.navigate('MainTab')
+      }
       if(userInfo) {
         const { profileUrl, sex, age, selfIntro, city, number, nickname} = userInfo;
         this.setState({
@@ -97,8 +102,17 @@ class Menu extends Component {
         });
     }
 
-    _onSaveButtonPress= () => {
-      return
+    _onSaveButtonPress= async () => {
+      this.setState({isLoading:true})
+      let userInfo = this.props.userInfo;
+      const { number, city ,selfIntro, profileUrl } = this.state;
+      userInfo = { ...userInfo, number ,city, selfIntro, profileUrl };
+      if(this.state.isProfileImgChanged){
+        await this.props.updateProfile(userInfo);
+      }
+      else{
+        await this.props.updateProfileWithoutImg(userInfo);
+      }
     }
 
     _renderList = () => {
@@ -107,31 +121,35 @@ class Menu extends Component {
           title: '닉네임',
           icon: {type: 'font-awesome', name: 'user', color: '#b2bec3'},
           value: this.state.nickname,
-          textInput: false
+          amend: false
         },
         {
           title: '성별',
           icon: {type: 'font-awesome', name: 'transgender', color: '#b2bec3'},
           value: this.state.sex,
-          textInput: false
+          amend: false
         },
         {
           title: '나이',
           icon: {type: 'font-awesome', name: 'sort-numeric-desc', color: '#b2bec3'},
           value: this.state.age,
-          textInput: false
+          amend: false
         },
         {
           title: '현재위치',
           icon: {type: 'font-awesome', name: 'location-arrow', color: '#b2bec3'},
           value: this.state.city,
-          textInput: false
+          amend: true,
+          rightIcon: {type: 'font-awesome', name:'edit' , color:'#636e72' },
+          onPress: this._chooseModal.bind(this, '현재위치')
         },
         {
           title: '동행',
           icon: {type: 'font-awesome', name: 'users', color: '#b2bec3'},
-          value: this.state.number,
-          textInput: false
+          value: this.state.number + ' 명',
+          amend: true,
+          rightIcon: {type: 'font-awesome', name:'edit' , color:'#636e72' },
+          onPress: this._chooseModal.bind(this, '동행')
         }
       ]
       return(<List containerStyle={{marginBottom: 10}}>
@@ -141,8 +159,10 @@ class Menu extends Component {
               leftIcon={item.icon}
               key={item.title}
               title={item.title}
-              rightTitle={<Text>{item.value}</Text>}
-              hideChevron
+              rightTitle={item.value}
+              rightIcon={item.rightIcon}
+              hideChevron={!item.amend}
+              onPressRightIcon={item.amend ? item.onPress : null}
             />
           ))
           }
@@ -169,6 +189,10 @@ class Menu extends Component {
           backgroundColor='#74b9ff'
         />
       )
+    }
+
+    _chooseModal(title) {
+      this.setState({modal: title});
     }
 
     _renderProfileImg() {
@@ -201,6 +225,98 @@ class Menu extends Component {
           onPress={this._onDisconnectButtonPress}
       />)
     }
+
+    _renderLocationPicker(){
+      return(
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modal == '현재위치'}>
+          <View style={{flex:1, flexDirection: 'column-reverse'}}>
+            <View style={{width:width , height: height/3, backgroundColor: '#dfe6e9' }}>
+                  <TouchableOpacity
+                    style={{width: 60, height:50, alignItems: 'center', justifyContent: 'center', alignSelf: 'flex-end'}}
+                    onPress={() => {
+                      this.setState({modal: null})
+                    }}>
+                    <Text>닫기</Text>
+                  </TouchableOpacity>
+                  <Button
+                    title='광안리'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() => this.setState({modal:null, city:'광안리'})}
+                  />
+                  <Button
+                    title='부산'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() => this.setState({modal:null, city:'부산'})}
+                  />
+                  <Button
+                    title='부산 외 지역'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() =>this.setState({modal:null, city:'부산 외 지역'})}
+                  />
+            </View>
+          </View>
+        </Modal>
+      )
+    }
+
+    _renderNumberPicker(){
+      return(
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modal == '동행'}>
+          <View style={{flex:1, flexDirection: 'column-reverse'}}>
+            <View style={{width:width , height: height/2.5, backgroundColor: '#dfe6e9' }}>
+                  <TouchableOpacity
+                    style={{width: 60, height:50, alignItems: 'center', justifyContent: 'center', alignSelf: 'flex-end'}}
+                    onPress={() => {
+                      this.setState({modal: null})
+                    }}>
+                    <Text>닫기</Text>
+                  </TouchableOpacity>
+                  <Button
+                    title='1명'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() => this.setState({modal:null, number:1})}
+                  />
+                  <Button
+                    title='2명'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() => this.setState({modal:null, number:2})}
+                  />
+                  <Button
+                    title='3명'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() =>this.setState({modal:null, number:3})}
+                  />
+                  <Button
+                    title='4명'
+                    style={{marginBottom: 10}}
+                    backgroundColor='#74b9ff'
+                    borderRadius={5}
+                    onPress={() =>this.setState({modal:null, number:4})}
+                  />
+            </View>
+          </View>
+        </Modal>
+      )
+    }
+
     render() {
         return (
             <View style={styles.containerViewStyle}>
@@ -210,7 +326,10 @@ class Menu extends Component {
                   {this._renderProfileImg()}
                   {this._renderList()}
                   {this._renderLogoutButton()}
+                  {this._renderLocationPicker()}
+                  {this._renderNumberPicker()}
                 </ScrollView>
+
             </View>
         )
     }
@@ -218,11 +337,11 @@ class Menu extends Component {
 
 function mapStateToProps({ menu, profile }) {
     const { isDisconnected } = menu;
-    const { userInfo } = profile;
-    return { isDisconnected, userInfo };
+    const { userInfo, isSaved } = profile;
+    return { isDisconnected, userInfo, isSaved };
 };
 
-export default connect(mapStateToProps, { sendbirdLogout, initMenu, fbLogOut, initProfile, getCurrentUserInfo, updateUserInfo })(Menu);
+export default connect(mapStateToProps, { sendbirdLogout, initMenu, fbLogOut, initProfile, getCurrentUserInfo, updateProfile, updateProfileWithoutImg })(Menu);
 
 const styles = {
     containerViewStyle: {
