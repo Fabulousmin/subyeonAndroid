@@ -13,7 +13,7 @@ export const sUpdateProfile = (userInfo) =>{
     const database = firebase.database();
     const { currentUser } = firebase.auth();
 
-    database.ref('users/'+ currentUser.uid).set({...userInfo, updatedAt: Date() })
+    database.ref('users/'+ currentUser.uid).set({...userInfo, updatedAt: new Date().getTime() })
         .then((res) => {
         console.log('user info updated');
         resolve(userInfo);
