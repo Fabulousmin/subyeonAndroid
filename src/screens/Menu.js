@@ -225,7 +225,7 @@ class Menu extends Component {
           icon={{name: 'sign-out', type: 'font-awesome' , color: '#000000', size: 16}}
           title='로그아웃'
           textStyle={{fontFamily:'BMHANNA11yrsold'}}
-          onPress={() => this._onDisconnectButtonPress}
+          onPress={this._onDisconnectButtonPress}
       />)
     }
 

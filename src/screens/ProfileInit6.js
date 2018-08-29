@@ -4,8 +4,8 @@ import { Text, Button, Header, Icon, Tile, FormLabel, FormInput, FormValidationM
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import { Spinner } from '../components';
-import { updateProfile, initProfile } from '../actions';
-import { sbUpdateProfile } from '../sendbirdActions';
+import { updateProfile, initProfile, getCurrentUserInfo } from '../actions';
+import { sbUpdateProfile} from '../sendbirdActions';
 import SendBird from 'sendbird';
 
 const { width } = Dimensions.get('window');
@@ -64,13 +64,12 @@ class ProfileInit6 extends Component {
     const { profileUrl, selfIntro,sendId,profileImgData } = this.state;
     if(profileUrl && selfIntro) {
     const userInfo = { sex, age, city, number, nickname, profileUrl, selfIntro, sendId, isProfile:'1', heart:10};
-    sbUpdateProfile(nickname,profileImgData);
-    await this.props.updateProfile(userInfo);}
+    await this.props.updateProfile(userInfo);
+    }
     else{
     this.setState({isLoading: false});
     return
     }
-    sbUpdateProfile(nickname,profileImgData);
   }
 
   componentDidMount() {
@@ -81,6 +80,10 @@ class ProfileInit6 extends Component {
     const { userInfo, isSaved, error } = props;
     if(isSaved){
       this.setState({isLoading:false});
+      this.props.getCurrentUserInfo();
+    }
+    if(userInfo){
+      sbUpdateProfile(userInfo.nickname, userInfo.profileUrl);
       this.props.navigation.navigate('MainStack');
     }
   }
@@ -125,6 +128,7 @@ class ProfileInit6 extends Component {
           <FormInput
             onChangeText={this.onSelfIntroChanged.bind(this)}
             placeholder='같이 소주한잔 어때요?'
+            autoCorrect={false}
           />
           {this.renderValidationMessage(this.state)}
         </View>
@@ -140,6 +144,7 @@ class ProfileInit6 extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -159,4 +164,4 @@ function mapStateToProps({ profile }) {
     const { userInfo, error, isSaved } = profile;
     return { userInfo, error, isSaved };
 }
-export default connect(mapStateToProps, { updateProfile, initProfile })(ProfileInit6);
+export default connect(mapStateToProps, { updateProfile, initProfile, getCurrentUserInfo })(ProfileInit6);

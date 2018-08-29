@@ -28,7 +28,7 @@ import { connect } from 'react-redux';
 import { sOnPressLike, sGetCurrentUserInfo } from '../subyeonActions';
 import { Header, Icon, Text } from 'react-native-elements';
 import firebase from '@firebase/app'
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 class List extends Component {
 
   state = {
@@ -90,7 +90,7 @@ class List extends Component {
                 '채팅을 하기 위해서는 하트가 필요합니다.',
                 [
                     {text: '충전하기', onPress: () => {
-                        this.props.navigation.navigate('Store')
+                        this.props.navigation.navigate('StoreStack')
                     }},
                     {text: '취소'}
                 ]
@@ -119,7 +119,8 @@ class List extends Component {
     }
 
    renderFlatList(isLoading) {
-     return (<FlatList
+     return (
+       <FlatList
       data={this.state.data}
       initialNumToRender={1}
       onEndReachedThreshold={1}
@@ -142,7 +143,8 @@ class List extends Component {
           />
         );
       }}
-    />)
+    />
+  )
    }
 
    onPressLike(uid) {
@@ -170,15 +172,14 @@ class List extends Component {
         if(userInfo){
         this.setState({heart: heart})
       }
-        if (userlist.length > 0 ) {
+        if (userlist.length > 0) {
             this.setState({data: userlist, isLoading: false})
         }
         if (channel) {
             this.props.groupChannelProgress(true);
+            this.props.navigation.navigate('ChatStack');
             this.props.addGroupChannelItem(channel);
-            this.props.navigation.navigate('GroupChannel')
             this.props.onGroupChannelPress(channel.url);
-
         }
     }
 
@@ -193,12 +194,14 @@ class List extends Component {
     return (
       <View>
         <Spinner visible={this.state.isLoading} />
-        <SHeader
-          onLeftPress={()=>this.props.navigation.navigate('Store')}
-          onRightPress={()=>this.props.navigation.navigate('MenuStack')}
-          heart={this.state.heart}
-        />
-        {this.renderFlatList()}
+            <SHeader
+              onLeftPress={()=>this.props.navigation.navigate('Store')}
+              onRightPress={()=>this.props.navigation.navigate('MenuStack')}
+              heart={this.state.heart}
+            />
+          <View style={styles.listContainer}>
+            {this.renderFlatList()}
+          </View>
       </View>
     );
   }
@@ -214,8 +217,11 @@ const mapStateToProps = ({ list, groupChannelInvite, profile , store}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1
   },
+  listContainer: {
+    height: height - 120
+  }
 });
 
 export default connect(
