@@ -159,6 +159,7 @@ class Menu extends Component {
               leftIcon={item.icon}
               key={item.title}
               title={item.title}
+              titleStyle={{fontFamily:'BMHANNA11yrsold',fontSize: 17}}
               rightTitle={<Text>{item.value}</Text>}
               rightIcon={item.rightIcon}
               hideChevron={!item.amend}
@@ -181,10 +182,10 @@ class Menu extends Component {
            />}
           centerComponent=
           {
-           <Text style={{color:'white', fontWeight:'600'}}>설정</Text>
+           <Text style={{color:'white',fontFamily:'BMHANNA11yrsold',fontSize:23}}>설정</Text>
           }
           rightComponent={
-            <Text onPress={() => this._onSaveButtonPress()} style={{color:'white'}}>저장</Text>
+            <Text onPress={() => this._onSaveButtonPress()} style={{color:'white',fontFamily:'BMHANNA11yrsold',fontSize:17}}>저장</Text>
           }
           backgroundColor='#74b9ff'
         />
@@ -205,8 +206,9 @@ class Menu extends Component {
         >
           <Button
             title='사진변경'
+            textStyle={{fontFamily:'BMHANNA11yrsold'}}
             leftIcon={{type:'font-awesome', name:'user'}}
-            backgroundColor='#00cec9'
+            backgroundColor='#74b9ff'
             borderRadius={10}
             onPress={this._imagePick.bind(this)}
           />
@@ -222,6 +224,7 @@ class Menu extends Component {
           color='#000000'
           icon={{name: 'sign-out', type: 'font-awesome' , color: '#000000', size: 16}}
           title='로그아웃'
+          textStyle={{fontFamily:'BMHANNA11yrsold'}}
           onPress={() => this._onDisconnectButtonPress}
       />)
     }
@@ -239,10 +242,11 @@ class Menu extends Component {
                     onPress={() => {
                       this.setState({modal: null})
                     }}>
-                    <Text>닫기</Text>
+                    <Text style={{fontFamily:'BMHANNA11yrsold'}}>닫기</Text>
                   </TouchableOpacity>
                   <Button
                     title='광안리'
+                    textStyle={{fontFamily:'BMHANNA11yrsold',fontSize: 17}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
@@ -250,6 +254,7 @@ class Menu extends Component {
                   />
                   <Button
                     title='부산'
+                    textStyle={{fontFamily:'BMHANNA11yrsold',fontSize: 17}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
@@ -257,6 +262,7 @@ class Menu extends Component {
                   />
                   <Button
                     title='부산 외 지역'
+                    textStyle={{fontFamily:'BMHANNA11yrsold',fontSize: 17}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
@@ -281,10 +287,11 @@ class Menu extends Component {
                     onPress={() => {
                       this.setState({modal: null})
                     }}>
-                    <Text>닫기</Text>
+                    <Text style={{fontFamily:'BMHANNA11yrsold',fontSize: 17}}>닫기</Text>
                   </TouchableOpacity>
                   <Button
                     title='1명'
+                    textStyle={{fontFamily:'BMHANNA11yrsold'}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
@@ -292,6 +299,7 @@ class Menu extends Component {
                   />
                   <Button
                     title='2명'
+                    textStyle={{fontFamily:'BMHANNA11yrsold'}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
@@ -299,6 +307,7 @@ class Menu extends Component {
                   />
                   <Button
                     title='3명'
+                    textStyle={{fontFamily:'BMHANNA11yrsold'}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
@@ -306,6 +315,7 @@ class Menu extends Component {
                   />
                   <Button
                     title='4명'
+                    textStyle={{fontFamily:'BMHANNA11yrsold'}}
                     style={{marginBottom: 10}}
                     backgroundColor='#74b9ff'
                     borderRadius={5}
