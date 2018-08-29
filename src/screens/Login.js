@@ -102,7 +102,7 @@ class Login extends Component {
                           placeholder="user@email.com"
                           placeholderTextColor="rgba(255,255,255,0.5)"
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA_11yrs_ttf',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
                           returnKeyType="next"
                           keyboardType="email-address"
                           autoCorrect={false}
@@ -118,7 +118,7 @@ class Login extends Component {
                           placeholderTextColor="rgba(255,255,255,0.5)"
                           secureTextEntry
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA_11yrs_ttf',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
                           returnKeyType="next"
                           keyboardType="email-address"
                           autoCorrect={false}
@@ -131,7 +131,7 @@ class Login extends Component {
                   <View style={styles.buttonContainer}>
                       <Button
                         title='로그인'
-                        textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20}}
+                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
                         onPress={this._onButtonPress}
@@ -140,7 +140,7 @@ class Login extends Component {
                       />
                       <Button
                         title='카카오톡으로 로그인'
-                        textStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:20}}
+                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         backgroundColor='#fcd411'
                         onPress={this._onKakaoButtonPress.bind(this)}
                         borderRadius={5}

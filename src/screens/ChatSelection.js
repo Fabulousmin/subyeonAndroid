@@ -144,9 +144,9 @@ static navigationOptions = ({ navigation }) => {
                   />
               )}
               title={channel.name.length > 30 ? channel.name.substring(0, 26) + '...' : channel.name}
-              titleStyle={{fontFamily:'BMHANNA_11yrs_ttf' ,fontWeight: '500', fontSize: 14 }}
+              titleStyle={{fontFamily:'BMHANNA11yrsold' ,fontWeight: '500', fontSize: 14 }}
               subtitle={channel.participantCount + ' Participant'}
-              subtitleStyle={{ fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '300', fontSize: 11 }}
+              subtitleStyle={{ fontFamily:'BMHANNA11yrsold',fontWeight: '300', fontSize: 11 }}
               onPress={() => this._onListItemPress(channel.url)}
           />
       )
@@ -197,7 +197,7 @@ static navigationOptions = ({ navigation }) => {
       return (
           <View style={styles.renderTitleViewStyle}>
               <View style={{flexDirection: 'row'}}>
-                  <Text style={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:16}}>{sbGetChannelTitle(channel)}</Text>
+                  <Text style={{fontFamily:'BMHANNA11yrsold',fontSize:16}}>{sbGetChannelTitle(channel)}</Text>
               </View>
               <View>
                   <Text style={styles.renderTitleTextStyle}>
@@ -295,9 +295,9 @@ static navigationOptions = ({ navigation }) => {
                   key={channel.url}
                   avatar={<Avatar rounded source={{uri:channel.members[0].profileUrl}} />}
                   title={this._renderTitle(channel)}
-                  titleStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '500', fontSize: 16}}
+                  titleStyle={{fontFamily:'BMHANNA11yrsold',fontWeight: '500', fontSize: 16}}
                   subtitle={this._renderLastMessage(channel)}
-                  subtitleStyle={{fontFamily:'BMHANNA_11yrs_ttf',fontWeight: '300', fontSize: 11}}
+                  subtitleStyle={{fontFamily:'BMHANNA11yrsold',fontWeight: '300', fontSize: 11}}
                   onPress={ () => this._ongListItemPress(channel.url) }
               />
           </Swipeout>
@@ -316,7 +316,7 @@ static navigationOptions = ({ navigation }) => {
         />
         <ScrollView>
           <View style={styles.divider}>
-            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:17,color:'#FFFFFF'}}>오 픈 채 팅 방</Text>
+            <Text style ={{fontFamily:'BMHANNA11yrsold',fontSize:17,color:'#FFFFFF'}}>오 픈 채 팅 방</Text>
           </View>
           <View>
               <Spinner visible={this.props.isLoading} />
@@ -331,7 +331,7 @@ static navigationOptions = ({ navigation }) => {
               />
           </View>
           <View style={styles.divider}>
-            <Text style ={{fontFamily:'BMHANNA_11yrs_ttf',fontSize:17,color:'#FFFFFF'}}>1 : 1 채 팅</Text>
+            <Text style ={{fontFamily:'BMHANNA11yrsold',fontSize:17,color:'#FFFFFF'}}>1 : 1 채 팅</Text>
           </View>
           <View>
               <Spinner visible={this.props.groupChannel.isLoading} />

@@ -16,7 +16,7 @@ const SHeader = (props) => {
           }
       centerComponent={
         <View style= {centerContainer}>
-          <Text style={{color:'white',fontWeight: '1000',fontSize:23,fontFamily:'BMHANNA_11yrs_ttf'}}>수변의 온도</Text>
+          <Text style={{color:'white',fontWeight: '900',fontSize:23,fontFamily:'BMHANNA11yrsold'}}>수변의 온도</Text>
         </View>
       }
       rightComponent={
