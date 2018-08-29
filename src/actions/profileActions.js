@@ -52,6 +52,15 @@ export const updateProfile = ( userInfo ) => {
     }
 }
 
+export const updateProfileWithoutImg = ( userInfo ) => {
+    return (dispatch) => {
+        const { currentUser } = firebase.auth();
+          sUpdateProfile({...userInfo, uid: currentUser.uid})
+          .then((res) => {console.log('update ok');updateSuccess(dispatch, res)})
+          .catch((error) =>  {console.log(error);updateFail(dispatch, error)})
+    }
+}
+
 const updateFail = (dispatch, error) => {
     dispatch({
         type: UPDATE_PROFILE_FAIL,

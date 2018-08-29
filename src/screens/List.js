@@ -39,11 +39,9 @@ class List extends Component {
       heart: null,
     }
     onEndReached = async () => {
-
    };
 
    onRefresh = async () => {
-
    }
 
    async checkChannel(sendId){
