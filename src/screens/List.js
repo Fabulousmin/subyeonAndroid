@@ -153,7 +153,6 @@ class List extends Component {
    )
  }
 
-
  _goToStore(){
    this.setState({modal:null})
    this.props.navigation.navigate('Store')
