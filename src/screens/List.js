@@ -5,7 +5,6 @@ import {
   View,
   Alert,
   Dimensions,
-  Modal,
   TouchableOpacity,
   TouchableHighlight,
   Button,
@@ -32,6 +31,7 @@ import { connect } from 'react-redux';
 import { sOnPressLike, sGetCurrentUserInfo } from '../subyeonActions';
 import { Header, Icon, Text } from 'react-native-elements';
 import firebase from '@firebase/app'
+import Modal from "react-native-modal";
 const { width,height } = Dimensions.get('window');
 import CheckAlert from "react-native-awesome-alert"
 class List extends Component {
@@ -120,6 +120,7 @@ class List extends Component {
      <Modal
        animationType="fade "
        transparent={true}
+       backdropColor={"red"}
        visible={this.state.modal == '열기'}>
        <View style={{flex:1, flexDirection: 'column-reverse',justifyContent: 'center'}}>
          <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
@@ -163,32 +164,47 @@ class List extends Component {
 
  _OpenStore(){
    return(
+    <View style>
      <Modal
        animationType="fade "
        transparent={true}
+       backdropColor="black"
        visible={this.state.modal == '스토어가기'}>
        <View style={{flex:1, flexDirection: 'column-reverse',justifyContent: 'center'}}>
          <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
+         <View>
+         <Text style={{fontFamily:'BMHANNA11yrsold',
+         textAlign: 'center',
+         color:'#74b9ff',
+         marginTop:10,
+       fontSize:20}}>
+       하트가 부족합니다.</Text>
+         </View>
+         <View>
+         <Text style={{fontFamily:'BMHANNA11yrsold',
+         textAlign: 'center',
+         marginTop:20,
+         color:'#708090',
+       fontSize:20}}>
+       하트5개를 사용합니다</Text>
+         </View>
           <View style={{flex: 1,
                      flexDirection: 'row',
                      alignItems: 'center',
-                     justifyContent: 'center',}}>
-          <View style={{flex: 1}}>
+                     justifyContent: 'center',
+                   marginTop:130,}}>
+          <View style={{flex:1}}>
            <Button
-             title='닫기'
-             style={{flex: 1}}
+             title='취소하기'
              textStyle={{fontFamily:'BMHANNA11yrsold'}}
              backgroundColor='#74b9ff'
-             borderRadius={5}
              onPress={() => this.setState({modal:null})}/>
               </View>
-              <View style={{flex: 1}}>
+              <View style={{flex:1}}>
                 <Button
                   title='충전하기'
                   textStyle={{fontFamily:'BMHANNA11yrsold'}}
-                  style={{flex: 1}}
                   backgroundColor='#74b9ff'
-                  borderRadius={5}
                   onPress={() => this._goToStore()}
                   />
                 </View>
@@ -196,6 +212,7 @@ class List extends Component {
              </View>
              </View>
            </Modal>
+          </View>
    )
  }
 
@@ -321,6 +338,12 @@ const mapStateToProps = ({ list, groupChannelInvite, profile , store}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  buttonContainer: {
+      flex: 1,
+      marginHorizontal: 10,
+      marginTop:10,
+      justifyContent:'space-between',
   },
 });
 
