@@ -28,7 +28,7 @@ public class MainApplication extends GlobalApplication implements ReactApplicati
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-            new RNKakaoLoginsPackage(),
+        new RNKakaoLoginsPackage(),
         new VectorIconsPackage(),
         new FIRMessagingPackage(),
         new ImagePickerPackage(),
