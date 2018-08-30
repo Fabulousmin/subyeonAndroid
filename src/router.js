@@ -25,7 +25,8 @@ const LoginStack = StackNavigator({
    Login: { screen: Login }
 }
 ,{
-   initialRouteName: 'Login'
+   initialRouteName: 'Login',
+   headerMode:'none'
    });
 
 const ProfileInitStack = StackNavigator(

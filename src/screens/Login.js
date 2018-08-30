@@ -3,16 +3,14 @@ import { View, Image, AsyncStorage, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage, Button, Text } from 'react-native-elements'
 import { initLogin, sendbirdLogin, kakaoLogin, getCurrentUserInfo } from '../actions';
-import {sbRegisterPushToken,sbCreateUserListQuery,sbGetUserList,sbGetCurrentInfo} from '../sendbirdActions';
+import {sbRegisterPushToken} from '../sendbirdActions';
 import { Spinner } from '../components';
 import SendBird from 'sendbird';
 
 
 
 class Login extends Component {
-    static navigationOptions = {
-        header: null
-    }
+
 
     constructor(props) {
         super(props);
@@ -89,15 +87,19 @@ class Login extends Component {
               enabled
           >
                 <Spinner visible={this.state.isLoading} />
-                <View style={styles.logoViewStyle}>
+                <View style={styles.logoContainer}>
                     <Image
                         style={{ width: 150, height: 150 }}
                         source={require('../img/logo.png')}
                     />
                 </View>
 
-                <View style={styles.formViewStyle}>
-                      <FormLabel>이메일</FormLabel>
+                <View style={styles.formContainer}>
+                      <FormLabel
+                        labelStyle={{color:'#dfe6e9'}}
+                        fontFamily='BMHANNA11yrsold'
+                      >이메일
+                      </FormLabel>
                       <FormInput
                           placeholder="user@email.com"
                           placeholderTextColor="rgba(255,255,255,0.5)"
@@ -112,7 +114,11 @@ class Login extends Component {
                           onChangeText={this._onUserIdChanged}
                       />
 
-                      <FormLabel>비밀번호</FormLabel>
+                      <FormLabel
+                        labelStyle={{color:'#dfe6e9'}}
+                        fontFamily='BMHANNA11yrsold'
+                      >비밀번호
+                      </FormLabel>
                       <FormInput
                           placeholder="password"
                           placeholderTextColor="rgba(255,255,255,0.5)"
@@ -127,9 +133,9 @@ class Login extends Component {
                           onChangeText={this._onPasswordChanged}
                       />
 
-                  <View style={styles.buttonContainer}>
                       <Button
                         title='로그인'
+                        style={{marginTop:5}}
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
@@ -139,17 +145,14 @@ class Login extends Component {
                       />
                       <Button
                         title='카카오톡으로 로그인'
+                        style={{marginTop:5}}
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         backgroundColor='#fcd411'
                         onPress={this._onKakaoButtonPress.bind(this)}
                         borderRadius={5}
 
                       />
-                  </View>
-
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
-                <View style={[styles.footerViewStyle]}>
-                </View>
               </View>
           </KeyboardAvoidingView>
         );
@@ -169,19 +172,13 @@ const styles = {
         backgroundColor: '#74b9ff',
         flex: 1
     },
-    logoViewStyle: {
-        flex: 5,
+    logoContainer: {
+        flex: 6,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    formViewStyle: {
-      flex: 5,
-    },
-    buttonContainer: {
-        flex: 1,
-        marginHorizontal: 10,
-        marginTop:10,
-        justifyContent:'space-between',
+    formContainer: {
+      flex: 4,
     },
     errorTextStyle: {
         alignSelf: 'center',
