@@ -15,7 +15,7 @@ import { initUserlist,
   onGroupChannelPress,
   getCurrentUserInfo,
   initHeart,
-  getHeart
+  getHeart,
 } from '../actions';
 import { UserList } from '../UserList';
 import { CardImage, Spinner, SHeader } from '../components';
@@ -177,9 +177,9 @@ class List extends Component {
         }
         if (channel) {
             this.props.groupChannelProgress(true);
-            this.props.navigation.navigate('ChatStack');
             this.props.addGroupChannelItem(channel);
             this.props.onGroupChannelPress(channel.url);
+            this.props.initInvite();
         }
     }
 
@@ -235,6 +235,6 @@ export default connect(
       onGroupChannelPress,
       getCurrentUserInfo,
       initHeart,
-      getHeart
+      getHeart,
     }
 )(List);

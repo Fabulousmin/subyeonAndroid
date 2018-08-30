@@ -69,6 +69,7 @@ class Store extends Component {
     const { error , heart } = props;
     if(heart){
       this.setState({heart: heart});
+      console.log(this.props.navigation.state)
     }
   }
 

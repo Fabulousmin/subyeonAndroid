@@ -50,11 +50,11 @@ static navigationOptions = ({ navigation }) => {
           groupChannelListQuery: null
       }
   }
-  async componentDidMount() {
+  componentDidMount() {
     this.props.initHeart();
     this._initOpenChannelList();
     this._initGroupChannelList();
-    await this.props.getHeart();
+    this.props.getHeart();
   }
 
 

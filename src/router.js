@@ -105,6 +105,7 @@ const MainTab =  TabNavigator({
   },
   tabBarPosition: 'bottom',
   animationEnabled: false,
+  lazy: false
 })
 
 const MainStack = SwitchNavigator({

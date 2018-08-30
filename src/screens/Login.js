@@ -120,7 +120,6 @@ class Login extends Component {
                           autoCapitalize="none"
                           inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
                           returnKeyType="next"
-                          keyboardType="email-address"
                           autoCorrect={false}
                           maxLength={30}
                           underlineColorAndroid='transparent'
