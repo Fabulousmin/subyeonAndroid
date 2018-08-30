@@ -49,10 +49,9 @@ export const kakaoLogin = () => {
         console.log(err);
         return;
       }
-      console.log(result);
       result = JSON.parse(result);
-      console.log(result);
       const token = result.token;
+      console.log(token);
       axios.post('http://13.125.213.67:8000/verifyToken', {
           token: token
       })
@@ -67,7 +66,7 @@ export const kakaoLogin = () => {
           .catch((error) => loginFail(dispatch, error.message));
         })
         .catch( error => {
-            var errorCode = error.code;
+          var errorCode = error.code;
           var errorMessage = error.message;
           console.log('error code:' + errorCode,'error message:' + errorMessage );
           loginFail(dispatch, error.message);

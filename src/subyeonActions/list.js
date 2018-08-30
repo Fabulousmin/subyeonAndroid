@@ -4,14 +4,14 @@ import firebase from '@firebase/app'
 
 export const sGetUserlist = () =>  {
   return new Promise ((resolve, reject) => {
-    const usersRef = firebase.database().ref().child("users").orderByChild('updatedAt').limitToLast(200)
+    const usersRef = firebase.database().ref().child("users").orderByChild('updatedAt')
     let userlist = [];
      usersRef.on('child_added',(snap)=> {
-       const { sex, age, nickname, profileUrl, city, number, selfIntro, uid, updatedAt,sendId } = snap.val();
-       const profile = { sex, age, nickname, profileUrl, city, number, selfIntro,sendId,uid, updatedAt };
+       const { sex, age, nickname, profileUrl, city, number, selfIntro, uid, updatedAt, sendId } = snap.val();
+       const profile = { sex, age, nickname, profileUrl, city, number, selfIntro, sendId, uid, updatedAt };
        userlist.push(profile);
+       resolve(userlist);
      })
-    resolve(userlist);
    }
   )
 }

@@ -111,7 +111,6 @@ class List extends Component {
       {let result = (now - before)/60000
         result = result /60
         result = Math.floor(result*10)/10
-        console.log(result);
         return result + ' 시간전'
       }
       else
@@ -161,10 +160,9 @@ class List extends Component {
         this.props.initHeart();
         this.props.getCurrentUserInfo();
         this.props.getHeart();
-        this.setState({ isLoading: true }, async () => {
-          await this.props.getUserlist();
+        this.setState({ isLoading: true }, () => {
+          this.props.getUserlist();
         });
-
     }
 
     componentWillReceiveProps(props){
@@ -172,8 +170,8 @@ class List extends Component {
         if(userInfo){
         this.setState({heart: heart})
       }
-        if (userlist.length > 0) {
-            this.setState({data: userlist, isLoading: false})
+        if (userlist) {
+            this.setState({data: userlist.reverse(), isLoading: false})
         }
         if (channel) {
             this.props.groupChannelProgress(true);
