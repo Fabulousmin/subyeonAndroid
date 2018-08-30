@@ -193,7 +193,7 @@ class List extends Component {
       <View>
         <Spinner visible={this.state.isLoading} />
             <SHeader
-              onLeftPress={()=>this.props.navigation.navigate('Store')}
+              onLeftPress={()=>this.props.navigation.navigate('StoreStack')}
               onRightPress={()=>this.props.navigation.navigate('MenuStack')}
               heart={this.state.heart}
             />
