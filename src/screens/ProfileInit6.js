@@ -116,8 +116,8 @@ class ProfileInit6 extends Component {
           backgroundColor='transparent'
         />
         <View style = {styles.formContainer}>
-          <Text h6 >수변공원에서 찍은 사진을 올려주세요.</Text>
-          <Text style={{color:'#8395a7', marginBottom: 10}}>간단한 자기소개도 부탁드립니다.</Text>
+          <Text style={{fontFamily:'BMHANNA11yrsold',fontSize:24}}>수변공원에서 찍은 사진을 올려주세요.</Text>
+          <Text style={{color:'#8395a7', marginBottom: 10,fontSize:14}}>간단한 자기소개도 부탁드립니다.</Text>
           <Tile
             imageSrc={this.state.profileUrl ? {uri:this.state.profileUrl} : require('../img/default.png')}
             title={this.state.profileUrl ? ('') : ('Touch Me')}
