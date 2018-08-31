@@ -35,6 +35,7 @@ class Chat extends Component {
           backgroundColor="transparent"
           onPress={() => {
             params.handleHeaderLeft();
+            
           }}
         />
       ),

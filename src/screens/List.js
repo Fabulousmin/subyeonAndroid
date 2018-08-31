@@ -4,7 +4,10 @@ import {
   FlatList,
   View,
   Alert,
-  Dimensions
+  Dimensions,
+  TouchableOpacity,
+  TouchableHighlight,
+  Button,
 } from 'react-native';
 import { initUserlist,
   getUserlist,
@@ -18,7 +21,7 @@ import { initUserlist,
   getHeart,
 } from '../actions';
 import { UserList } from '../UserList';
-import { CardImage, Spinner, SHeader } from '../components';
+import { CardImage, Spinner, SHeader} from '../components';
 import {sbGetChannelTitle,
   sbCreateGroupChannelListQuery,
   sbGetGroupChannelList,
@@ -28,7 +31,9 @@ import { connect } from 'react-redux';
 import { sOnPressLike, sGetCurrentUserInfo } from '../subyeonActions';
 import { Header, Icon, Text } from 'react-native-elements';
 import firebase from '@firebase/app'
-const { width, height } = Dimensions.get('window');
+import Modal from "react-native-modal";
+const { width,height } = Dimensions.get('window');
+import CheckAlert from "react-native-awesome-alert"
 class List extends Component {
 
   state = {
@@ -37,6 +42,8 @@ class List extends Component {
       data: [],
       error: '',
       heart: null,
+      modal:null,
+      inviteUserIdList:null,
     }
     onEndReached = async () => {
    };
@@ -57,9 +64,9 @@ class List extends Component {
     return check
    }
 
-
    onCreateButtonPress = (sendId) => {
     const inviteUserIdList = [sendId]
+    this.setState({inviteUserIdList:sendId})
     const arr=[];
     const currentuser  = firebase.auth().currentUser.uid
     const database = firebase.database();
@@ -71,37 +78,147 @@ class List extends Component {
       arr.push(snap.val())})
     const userheart = arr[2]
     if (userheart >= 5) {
-       Alert.alert(
-         '채팅방 열기',
-          '하트 5개가 사용됩니다',
-          [
-              {text: '확인', onPress: () => {
-                const updatedheart = userheart - 5
-                database.ref('users/'+currentuser).update({heart:updatedheart})
-                const isDistinct = true;
-                this.props.createGroupChannel(inviteUserIdList, isDistinct);
-              }},
-              {text: '취소'}
-          ])
-    }
+      this.setState({modal:'열기'})
+      }
     else{
-      Alert.alert(
-                '하트가 부족합니다.',
-                '채팅을 하기 위해서는 하트가 필요합니다.',
-                [
-                    {text: '충전하기', onPress: () => {
-                        this.props.navigation.navigate('StoreStack')
-                    }},
-                    {text: '취소'}
-                ]
-            );
+    this.setState({modal: '스토어가기'})
+
           }
         }
         else{
             this.props.createGroupChannel(inviteUserIdList, true);
         }
-      })
-    }
+
+        })
+      }
+
+  _reduceHeart(sendId){
+    const inviteUserIdList = [sendId]
+    const arr=[];
+    const currentuser  = firebase.auth().currentUser.uid
+    const database = firebase.database();
+    const heart = database.ref().child("users/"+currentuser)
+    heart.on('child_added',function(snap){
+      arr.push(snap.val())})
+    const userheart = arr[2]
+    const updatedheart = userheart - 5
+    database.ref('users/'+currentuser).update({heart:updatedheart})
+    this.setState({modal:null})
+    const isDistinct = true;
+    this.props.createGroupChannel(inviteUserIdList, isDistinct);
+  }
+
+
+
+
+
+
+
+
+ _OpenChatting(){
+   return(
+     <Modal
+       animationType="fade "
+       transparent={true}
+       backdropColor={"red"}
+       visible={this.state.modal == '열기'}>
+       <View style={{flex:1, flexDirection: 'column-reverse',justifyContent: 'center', alignItems: 'center'}}>
+         <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
+          <View style={{flex: 1,
+                     flexDirection: 'row',
+                     alignItems: 'center',
+                     justifyContent: 'center',}}>
+          <View style={{flex: 1}}>
+           <Button
+             title='닫기'
+             style={{flex: 1}}
+             textStyle={{fontFamily:'BMHANNA11yrsold'}}
+             backgroundColor='#74b9ff'
+             borderRadius={5}
+             onPress={() => this.setState({modal:null})}/>
+              </View>
+              <View style={{flex: 1}}>
+                <Button
+                  title='확인'
+                  textStyle={{fontFamily:'BMHANNA11yrsold'}}
+                  style={{flex: 1}}
+                  backgroundColor='#74b9ff'
+                  borderRadius={5}
+                  onPress={() =>this._reduceHeart(this.state.inviteUserIdList)}
+                  />
+                </View>
+              </View>
+             </View>
+             </View>
+           </Modal>
+   )
+ }
+
+ _goToStore(){
+   this.setState({modal:null})
+   this.props.navigation.navigate('StoreStack')
+ }
+
+
+
+
+ _OpenStore(){
+   return(
+    <View style>
+     <Modal
+       animationType="fade "
+       transparent={true}
+       backdropColor="black"
+       visible={this.state.modal == '스토어가기'}>
+       <View style={{flex:1, flexDirection: 'column-reverse',justifyContent: 'center'}}>
+         <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
+         <View>
+         <Text style={{fontFamily:'BMHANNA11yrsold',
+         textAlign: 'center',
+         color:'#74b9ff',
+         marginTop:10,
+       fontSize:20}}>
+       하트가 부족합니다.</Text>
+         </View>
+         <View>
+         <Text style={{fontFamily:'BMHANNA11yrsold',
+         textAlign: 'center',
+         marginTop:20,
+         color:'#708090',
+       fontSize:20}}>
+       하트5개를 사용합니다</Text>
+         </View>
+          <View style={{flex: 1,
+                     flexDirection: 'row',
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                   marginTop:130,}}>
+          <View style={{flex:1}}>
+           <Button
+             title='취소하기'
+             textStyle={{fontFamily:'BMHANNA11yrsold'}}
+             backgroundColor='#74b9ff'
+             onPress={() => this.setState({modal:null})}/>
+              </View>
+              <View style={{flex:1}}>
+                <Button
+                  title='충전하기'
+                  textStyle={{fontFamily:'BMHANNA11yrsold'}}
+                  backgroundColor='#74b9ff'
+                  onPress={() => this._goToStore()}
+                  />
+                </View>
+              </View>
+             </View>
+             </View>
+           </Modal>
+          </View>
+   )
+ }
+
+
+
+
 
 
     getUpdatedBefore(updatedAt) {
@@ -116,6 +233,7 @@ class List extends Component {
       else
       return '1일전'
     }
+//
 
    renderFlatList(isLoading) {
      return (
@@ -183,7 +301,7 @@ class List extends Component {
 
 
    _keyExtractor(item, index) {
-     return item.nickname
+     return item.nickname;
    }
 
 
@@ -192,14 +310,14 @@ class List extends Component {
     return (
       <View>
         <Spinner visible={this.state.isLoading} />
-            <SHeader
-              onLeftPress={()=>this.props.navigation.navigate('StoreStack')}
-              onRightPress={()=>this.props.navigation.navigate('MenuStack')}
-              heart={this.state.heart}
-            />
-          <View style={styles.listContainer}>
-            {this.renderFlatList()}
-          </View>
+        <SHeader
+          onLeftPress={()=>this.props.navigation.navigate('StoreStack')}
+          onRightPress={()=>this.props.navigation.navigate('MenuStack')}
+          heart={this.state.heart}
+        />
+        {this.renderFlatList()}
+        {this._OpenChatting()}
+        {this._OpenStore()}
       </View>
     );
   }
@@ -217,9 +335,12 @@ const styles = StyleSheet.create({
   container: {
     flex:1
   },
-  listContainer: {
-    height: height - 120
-  }
+  buttonContainer: {
+      flex: 1,
+      marginHorizontal: 10,
+      marginTop:10,
+      justifyContent:'space-between',
+  },
 });
 
 export default connect(

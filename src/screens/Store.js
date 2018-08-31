@@ -12,10 +12,10 @@ import { SHeader } from '../components';
 const renderRightButton = (dallars) => {
   return (
     <View
-       style={{width:100, height:45, marginRight:15, borderWidth:1,  borderRadius: 10, borderColor: '#00cec9'
+       style={{width:100, height:45, marginRight:15, borderWidth:1,  borderRadius: 10, borderColor: '#74b9ff'
        ,alignItems: 'center', justifyContent: 'center'
     }}>
-      <Text style={{fontFamily:'BMHANNA11yrsold',color: '#00cec9', fontSize: 15}}>US{dallars}$</Text>
+      <Text style={{fontFamily:'BMHANNA11yrsold',color: '#74b9ff', fontSize: 15}}>US{dallars}$</Text>
       </View>
   )
 }
