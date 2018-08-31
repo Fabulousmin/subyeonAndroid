@@ -22,20 +22,22 @@ const CardImage = ( props ) => {
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
-                </Button>
+              <Text>
+                <Text style ={{fontFamily:'BMHANNA11yrsold',fontSize:17}}>수변 </Text>
+                  <Text style ={{fontFamily:'BMHANNA11yrsold',color:props.color,fontSize:17}}>{props.location}</Text>
+              </Text>
               </Left>
               <Body>
-                <Button
-                  transparent
-                  onPress={props.onpress}
-                  >
-                  <Icon active name="chatbubbles" />
-                  <Text style ={{fontFamily:'BMHANNA11yrsold'}}>Message</Text>
-                </Button>
+            <Text style ={{fontFamily:'BMHANNA11yrsold',marginTop:13,textAlign:'right'}}>{props.updatedAt}</Text>
               </Body>
               <Right>
-                <Text style ={{fontFamily:'BMHANNA11yrsold'}}>{props.updatedAt}</Text>
+              <Button
+                transparent
+                onPress={props.onpress}
+                >
+                <Icon active name="paper-plane" />
+                <Text style ={{fontFamily:'BMHANNA11yrsold',fontSize:19,textAlign:'center'}}> 1:1 채팅</Text>
+              </Button>
               </Right>
             </CardItem>
           </Card>

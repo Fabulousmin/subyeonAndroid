@@ -22,7 +22,6 @@ export const sendbirdLogin = ({ userId, password }) => {
         .catch((error) => {loginFail(dispatch, error.message)});
       })
       .catch((error) => {
-        console.log('이거실행?',error);
         firebase.auth().createUserWithEmailAndPassword(userId, password)
         .then(() => {
         console.log('user created');

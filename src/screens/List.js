@@ -228,12 +228,54 @@ class List extends Component {
       {let result = (now - before)/60000
         result = result /60
         result = Math.floor(result*10)/10
-        return result + ' 시간전'
+        return Math.round(result) + ' 시간전'
       }
       else
       return '1일전'
     }
 //
+
+    getLocation(city,updatedAt){
+      const location = city;
+      const now = new Date();
+      const before = new Date(updatedAt);
+      let result = (now - before)/60000
+      result = result /60
+      result = Math.floor(result*10)/10
+      result = Math.round(result)
+      console.log('결과보기',result)
+
+      if(location ==='광안리'){
+        if(result <5){
+        return 'IN'
+          }
+        else{
+          return 'OUT'
+          }
+        }
+      else{
+        return 'OUT'
+      }
+   }
+
+   getLocationColor(city,updatedAt){
+     const location = city;
+     const now = new Date();
+     const before = new Date(updatedAt);
+     let result = (now - before)/60000
+     result = result /60
+     result = Math.floor(result*10)/10
+     result = Math.round(result)
+
+     if(location ==='광안리'&& result <5){
+       return '#1E90FF'
+     }
+     else{
+       return 'red'
+     }
+   }
+
+
 
    renderFlatList(isLoading) {
      return (
@@ -257,6 +299,8 @@ class List extends Component {
             age={item.age}
             onpress={()=>this.onCreateButtonPress(item.sendId)}
             updatedAt={this.getUpdatedBefore(item.updatedAt)}
+            location={this.getLocation(item.city,item.updatedAt)}
+            color ={this.getLocationColor(item.city,item.updatedAt)}
           />
         );
       }}

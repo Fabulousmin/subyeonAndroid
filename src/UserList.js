@@ -10,9 +10,9 @@ export const UserList = () => {
       number,
       sex,
       selfIntro,
-      age
+      age,
+      city
     });
   });
-    console.log('잠만보자',arr)
     return arr
 };
