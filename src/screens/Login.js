@@ -45,10 +45,11 @@ class Login extends Component {
                     }
                       })
                     })
+                  }
           if (error) {
-              this.setState({ isLoading: false });
+              this.setState({ isLoading: false,password:''})
+              this.props.initLogin();
           }
-        }
       }
       async checkUsers(){
       const sb = SendBird.getInstance();
@@ -67,9 +68,16 @@ class Login extends Component {
 
     _onButtonPress = () => {
         const { userId, password } = this.state;
+        console.log('아이디',userId)
+        console.log('비번',password)
+        if (userId=="" || password==""){
+          return;
+        }
+        else{
         this.setState({ isLoading: true }, () => {
             this.props.sendbirdLogin({ userId, password });
         });
+      }
     }
 
     _onKakaoButtonPress = () => {

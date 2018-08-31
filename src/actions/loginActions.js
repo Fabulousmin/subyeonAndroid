@@ -17,14 +17,14 @@ export const sendbirdLogin = ({ userId, password }) => {
     return (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(userId, password)
         .then(user => {
-          sbConnect(userId, 'wtd')
+          sbConnect(userId)
         .then((user) => {console.log(user);loginSuccess(dispatch, user) })
-        .catch((error) => loginFail(dispatch, error.message) );
+        .catch((error) => {loginFail(dispatch, error.message)});
       })
       .catch((error) => {
-        console.log(error);
+        console.log('이거실행?',error);
         firebase.auth().createUserWithEmailAndPassword(userId, password)
-        .then( () => {
+        .then(() => {
         console.log('user created');
         firebase.auth().signInWithEmailAndPassword(userId, password)
         .then(() => {
@@ -35,7 +35,7 @@ export const sendbirdLogin = ({ userId, password }) => {
 
         .catch((error) => loginFail(dispatch, error.message) );
       })
-        .catch((error) => loginFail(dispatch, error.message) );
+        .catch((error) => loginFail(dispatch, error.message));
       });
     }
 }
