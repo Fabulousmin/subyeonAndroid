@@ -18,24 +18,10 @@ export const sendbirdLogin = ({ userId, password }) => {
         firebase.auth().signInWithEmailAndPassword(userId, password)
         .then(user => {
           sbConnect(userId)
-        .then((user) => {console.log(user);loginSuccess(dispatch, user) })
+        .then((user) => {loginSuccess(dispatch, user)})
         .catch((error) => {loginFail(dispatch, error.message)});
       })
-      .catch((error) => {
-        firebase.auth().createUserWithEmailAndPassword(userId, password)
-        .then(() => {
-        console.log('user created');
-        firebase.auth().signInWithEmailAndPassword(userId, password)
-        .then(() => {
-        console.log('user loggedIn');
-        sbConnect(userId)
-        .then( (user) => loginSuccess(dispatch, user) )
-        .catch( (error) => loginFail(dispatch, error) );} )
-
-        .catch((error) => loginFail(dispatch, error.message) );
-      })
-        .catch((error) => loginFail(dispatch, error.message));
-      });
+      .catch((error) => {loginFail(dispatch, error.message)})
     }
 }
 

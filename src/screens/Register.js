@@ -1,53 +1,55 @@
 import React, { Component } from 'react';
-import { View, Image, AsyncStorage, KeyboardAvoidingView } from 'react-native';
+import { View, Image, AsyncStorage, KeyboardAvoidingView,Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage, Button, Text } from 'react-native-elements'
-import { initLogin, sendbirdLogin, kakaoLogin, getCurrentUserInfo } from '../actions';
-import {sbRegisterPushToken} from '../sendbirdActions';
+import { initregister,userRegister,getCurrentUserInfo } from '../actions';
+import {sbRegisterPushToken,sbCreateUserListQuery,sbGetUserList} from '../sendbirdActions';
 import { Spinner } from '../components';
 import SendBird from 'sendbird';
+import firebase from '@firebase/app'
 
 
 
-class Login extends Component {
 
+class Register extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isLoading: false,
             userId: '',
-            password: ''
+            password: '',
+            paswordCheck:'',
         };
     }
 
     async componentDidMount() {
-        this.props.initLogin();
+        this.props.initregister();
       }
 
       componentWillReceiveProps(props) {
-          async () => await getCurrentUserInfo();
-          let { user, error, userInfo } = props;
+          let {user, error} = props;
           if (user) {
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
                           .then(res => {})
-                          .catch(err => {})
-                    }
-                      this.props.navigation.navigate('MainStack')
+                          .catch(err => {})}
+                      this.props.navigation.navigate('ProfileInitStack')
                     })
                   }
           if (error) {
-              this.setState({ isLoading: false,password:''})
-              this.props.initLogin();
+              this.setState({ isLoading: false,userId:'',password:'',paswordCheck:''})
+              this.props.initregister();
+              Alert.alert(
+          '이메일을 확인해주세요',
+           '중복된 이메일이 있습니다.',
+           [
+               {text: '확인'}
+           ])
           }
       }
-      async checkUsers(){
-      const sb = SendBird.getInstance();
-      const currentUserNickname = sb.currentUser.nickname
-      return currentUserNickname
-    }
+
 
 
     _onUserIdChanged = (userId) => {
@@ -58,25 +60,36 @@ class Login extends Component {
         this.setState({ password });
     }
 
-    _onButtonPress = () => {
-        const { userId, password } = this.state;
-        console.log('아이디',userId)
-        console.log('비번',password)
-        if (userId=="" || password==""){
-          return;
-        }
+    _onPasswordCheckChanged =(paswordCheck) =>{
+      this.setState({paswordCheck})
+    }
+
+
+    _onReigserButtonPress = () => {
+      const {userId, password,paswordCheck} = this.state;
+      if(userId==''||password==""){
+        return;
+      }
+      else{
+        if (password === paswordCheck){
+          this.setState({ isLoading: true }, () => {
+              this.props.userRegister({userId, password });
+        })}
         else{
-        this.setState({ isLoading: true }, () => {
-            this.props.sendbirdLogin({ userId, password });
-        });
+          Alert.alert(
+      '비밀번호를 확인해주세요',
+       '비밀번호가 다릅니다',
+       [
+           {text: '확인'}
+       ])
+        }
       }
     }
 
-    _onKakaoButtonPress = () => {
-      this.setState({ isLoading: true }, () => {
-        this.props.kakaoLogin();
-      });
-    }
+
+
+
+
 
 
     render() {
@@ -84,16 +97,8 @@ class Login extends Component {
           <KeyboardAvoidingView
               style={styles.containerStyle}
               behavior="padding"
-              enabled
-          >
+              enabled>
                 <Spinner visible={this.state.isLoading} />
-                <View style={styles.logoContainer}>
-                    <Image
-                        style={{ width: 150, height: 150 }}
-                        source={require('../img/logo.png')}
-                    />
-                </View>
-
                 <View style={styles.formContainer}>
                       <FormLabel
                         labelStyle={{color:'#dfe6e9'}}
@@ -113,7 +118,6 @@ class Login extends Component {
                           value={this.state.userId}
                           onChangeText={this._onUserIdChanged}
                       />
-
                       <FormLabel
                         labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
@@ -132,33 +136,44 @@ class Login extends Component {
                           value={this.state.password}
                           onChangeText={this._onPasswordChanged}
                       />
+                      <FormLabel
+                        labelStyle={{color:'#dfe6e9'}}
+                        fontFamily='BMHANNA11yrsold'
+                      >비밀번호 확인
+                      </FormLabel>
+                      <FormInput
+                          placeholder="password"
+                          placeholderTextColor="rgba(255,255,255,0.5)"
+                          secureTextEntry
+                          autoCapitalize="none"
+                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          returnKeyType="next"
+                          autoCorrect={false}
+                          maxLength={30}
+                          underlineColorAndroid='transparent'
+                          value={this.state.paswordCheck}
+                          onChangeText={this._onPasswordCheckChanged}
+                      />
+                      <Button
+                        title='뒤로가기'
+                        style={{marginTop:5}}
+                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
+                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
+                        backgroundColor='#54a0ff'
+                        onPress={() => this.props.navigation.navigate('LoginStack')}
+                        disabled={this.state.isLoading}
+                        borderRadius={5}
+                      />
                       <Button
                         title='회원가입'
                         style={{marginTop:5}}
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.navigate('RegisterStack')}
+                        onPress={this._onReigserButtonPress}
                         disabled={this.state.isLoading}
                         borderRadius={5}
                       />
-                      <Button
-                        title='로그인'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
-                        backgroundColor='#54a0ff'
-                        onPress={this._onButtonPress}
-                        disabled={this.state.isLoading}
-                        borderRadius={5}
-                      />
-                      <Button
-                        title='카카오톡으로 로그인'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        backgroundColor='#fcd411'
-                        onPress={this._onKakaoButtonPress.bind(this)}
-                        borderRadius={5}/>
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
               </View>
           </KeyboardAvoidingView>
@@ -166,13 +181,12 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps({ login, profile }) {
-    const { error, user } = login;
-    const { userInfo } = profile;
-    return { error, user, userInfo };
+function mapStateToProps({ register }) {
+    const { error, user } = register;
+    return { error, user };
 }
 
-export default connect(mapStateToProps, { initLogin, sendbirdLogin, kakaoLogin, getCurrentUserInfo })(Login);
+export default connect(mapStateToProps, {userRegister,initregister})(Register);
 
 const styles = {
     containerStyle: {

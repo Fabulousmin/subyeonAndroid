@@ -65,7 +65,6 @@ export const sbUnregisterPushToken = () => {
 
 export const sbConnect = (userId, nickname,profileUrl) => {
     return new Promise((resolve, reject) => {
-      console.log('유저아이디',userId)
         if (!userId) {
             reject('UserID is required.');
             return;
@@ -73,7 +72,6 @@ export const sbConnect = (userId, nickname,profileUrl) => {
         const sb = new SendBird({'appId': APP_ID});
         sb.connect(userId, (user, error) => {
             if (error) {
-              console.log('에러 뜻다',error)
                 reject('SendBird Login Failed.');
             } else {
                 if(Platform.OS === 'ios') {

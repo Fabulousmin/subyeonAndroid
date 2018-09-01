@@ -219,8 +219,6 @@ class List extends Component {
 
 
 
-
-
     getUpdatedBefore(updatedAt) {
       const now = new Date();
       const before = new Date(updatedAt);

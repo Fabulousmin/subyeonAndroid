@@ -23,7 +23,6 @@ class ProfileInit3 extends Component {
        this.setState({duplicated: false});
        usersRef.on('child_added',(snap)=> {
          const { nickname } = snap.val();
-         console.log(nickname);
          if(nickname === nicknameInput)
           { this.setState({duplicated: true}) }
      })

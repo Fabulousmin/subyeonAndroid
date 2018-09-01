@@ -10,3 +10,4 @@ export * from './groupChannelActions';
 export * from './groupChannelInviteActions';
 export * from './listActions';
 export * from './store';
+export * from './registerAction';
