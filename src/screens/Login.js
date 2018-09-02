@@ -35,7 +35,15 @@ class Login extends Component {
                           .then(res => {})
                           .catch(err => {})
                     }
+                  this.checkUsers()
+                  .then((currentUserNickname)=>{
+                    if(currentUserNickname!=="") {
                       this.props.navigation.navigate('MainStack')
+                    }
+                    else{
+                      this.props.navigation.navigate('ProfileInitStack')
+                    }
+                      })
                     })
                   }
           if (error) {
@@ -48,6 +56,7 @@ class Login extends Component {
       const currentUserNickname = sb.currentUser.nickname
       return currentUserNickname
     }
+
 
 
     _onUserIdChanged = (userId) => {

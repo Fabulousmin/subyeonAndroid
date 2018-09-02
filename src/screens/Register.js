@@ -33,9 +33,8 @@ class Register extends Component {
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
-                          .then(res => {})
+                          .then(res => { this.props.navigation.navigate('ProfileInitStack')})
                           .catch(err => {})}
-                      this.props.navigation.navigate('ProfileInitStack')
                     })
                   }
           if (error) {
