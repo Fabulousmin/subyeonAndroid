@@ -33,9 +33,8 @@ class Register extends Component {
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
-                          .then(res => {})
+                          .then(res => { this.props.navigation.navigate('ProfileInitStack')})
                           .catch(err => {})}
-                      this.props.navigation.navigate('ProfileInitStack')
                     })
                   }
           if (error) {
@@ -160,7 +159,7 @@ class Register extends Component {
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.navigate('LoginStack')}
+                        onPress={() => this.props.navigation.goBack()}
                         disabled={this.state.isLoading}
                         borderRadius={5}
                       />

@@ -8,8 +8,7 @@ import {
 } from '../sendbirdActions';
 import { Spinner } from '../components';
 import { getCurrentUserInfo } from '../actions';
-
-
+import SendBird from 'sendbird';
 const { width , height } = Dimensions.get('window');
 import firebase from '@firebase/app'
 class Start extends Component {
@@ -55,7 +54,15 @@ class Start extends Component {
                                               ]
                                           }));
                                       }
-                                      else this.props.navigation.navigate('MainStack')
+                                      else{
+                                    this.checkUsersProfileUrl()
+                                    .then((check)=>{
+                                      if(check){
+                                        this.props.navigation.navigate('ProfileInitStack')
+                                      }
+                                        else this.props.navigation.navigate('MainStack')
+                                      }
+                                    )}
                                   });
                               });
                           })
@@ -75,6 +82,17 @@ class Start extends Component {
         }
       );
     }
+
+
+    async checkUsersProfileUrl(){
+    const sb = SendBird.getInstance();
+    let currentUserProfileUrl = sb.currentUser.profileUrl
+    currentUserProfileUrl = currentUserProfileUrl.split('/')
+    if (currentUserProfileUrl[2] == 'sendbird.com'){
+      return true
+    }
+    else false
+  }
 
 
 

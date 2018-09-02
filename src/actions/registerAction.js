@@ -25,7 +25,7 @@ export const userRegister=({userId,password}) =>{
     .catch( (error) => loginFail(dispatch, error) );} )
     .catch((error) => loginFail(dispatch, error.message) );
   })
-    .catch((error) => {console.log('에러러??',error.message);registerFail(dispatch, error.message)});
+    .catch((error) => {registerFail(dispatch, error.message)});
   }
 }
 

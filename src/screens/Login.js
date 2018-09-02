@@ -35,7 +35,15 @@ class Login extends Component {
                           .then(res => {})
                           .catch(err => {})
                     }
+                  this.checkUsers()
+                  .then((currentUserNickname)=>{
+                    if(currentUserNickname!=="") {
                       this.props.navigation.navigate('MainStack')
+                    }
+                    else{
+                      this.props.navigation.navigate('ProfileInitStack')
+                    }
+                      })
                     })
                   }
           if (error) {
@@ -48,6 +56,7 @@ class Login extends Component {
       const currentUserNickname = sb.currentUser.nickname
       return currentUserNickname
     }
+
 
 
     _onUserIdChanged = (userId) => {
@@ -138,7 +147,7 @@ class Login extends Component {
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.navigate('RegisterStack')}
+                        onPress={() => this.props.navigation.navigate('Register')}
                         disabled={this.state.isLoading}
                         borderRadius={5}
                       />
