@@ -94,11 +94,14 @@ class Register extends Component {
 
     render() {
         return (
-          <KeyboardAvoidingView
-              style={styles.containerStyle}
+          <View
+              style={styles.container}
               behavior="padding"
               enabled>
-                <Spinner visible={this.state.isLoading} />
+                <Spinner visible={this.state.isLoading}/>
+                <View style={styles.titleContainer}>
+                  <Text h2 style={styles.title}>회원가입</Text>
+                </View>
                 <View style={styles.formContainer}>
                       <FormLabel
                         labelStyle={{color:'#dfe6e9'}}
@@ -160,7 +163,7 @@ class Register extends Component {
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.navigate('LoginStack')}
+                        onPress={() => this.props.navigation.goBack()}
                         disabled={this.state.isLoading}
                         borderRadius={5}
                       />
@@ -176,7 +179,7 @@ class Register extends Component {
                       />
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
               </View>
-          </KeyboardAvoidingView>
+          </View>
         );
     }
 }
@@ -189,32 +192,20 @@ function mapStateToProps({ register }) {
 export default connect(mapStateToProps, {userRegister,initregister})(Register);
 
 const styles = {
-    containerStyle: {
+    container: {
         backgroundColor: '#74b9ff',
-        flex: 1
+        flex: 1,
     },
-    logoContainer: {
-        flex: 6,
-        alignItems: 'center',
-        justifyContent: 'center'
+    titleContainer:{
+    padding:50,
+    alignItems:'center'
     },
-    formContainer: {
-      flex: 4,
+    title:{
+      color:'#dfe6e9'
     },
     errorTextStyle: {
         alignSelf: 'center',
         fontSize: 12,
         color: '#e03131'
-    },
-    footerViewStyle: {
-        paddingLeft: 28,
-        paddingRight: 28,
-        marginTop: 15,
-        flexDirection: 'column'
-    },
-    footerTextStyle: {
-        alignSelf: 'center',
-        fontSize: 12,
-        color: '#8e8e8e'
     }
 }

@@ -15,3 +15,4 @@ export {
 } from 'react-native-elements';
 export * from './CardImage';
 export * from './SHeader';
+export * from './SAlert';

@@ -138,7 +138,7 @@ class Login extends Component {
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.navigate('RegisterStack')}
+                        onPress={() => this.props.navigation.navigate('Register')}
                         disabled={this.state.isLoading}
                         borderRadius={5}
                       />
@@ -180,12 +180,12 @@ const styles = {
         flex: 1
     },
     logoContainer: {
-        flex: 6,
+        flex: 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
     formContainer: {
-      flex: 4,
+      flex: 5,
     },
     errorTextStyle: {
         alignSelf: 'center',

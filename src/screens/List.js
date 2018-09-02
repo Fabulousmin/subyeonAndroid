@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TouchableHighlight,
-  Button,
+  Modal
 } from 'react-native';
 import { initUserlist,
   getUserlist,
@@ -21,7 +21,7 @@ import { initUserlist,
   getHeart,
 } from '../actions';
 import { UserList } from '../UserList';
-import { CardImage, Spinner, SHeader} from '../components';
+import { CardImage, Spinner, SHeader, SAlert} from '../components';
 import {sbGetChannelTitle,
   sbCreateGroupChannelListQuery,
   sbGetGroupChannelList,
@@ -29,11 +29,10 @@ import {sbGetChannelTitle,
 } from '../sendbirdActions';
 import { connect } from 'react-redux';
 import { sOnPressLike, sGetCurrentUserInfo } from '../subyeonActions';
-import { Header, Icon, Text } from 'react-native-elements';
+import { Header, Icon, Text, Button } from 'react-native-elements';
 import firebase from '@firebase/app'
-import Modal from "react-native-modal";
 const { width,height } = Dimensions.get('window');
-import CheckAlert from "react-native-awesome-alert"
+
 class List extends Component {
 
   state = {
@@ -112,41 +111,24 @@ class List extends Component {
 
  _OpenChatting(){
    return(
-     <Modal
-       animationType="fade "
-       transparent={true}
-       backdropColor={"red"}
-       visible={this.state.modal == '열기'}>
-       <View style={{flex:1, flexDirection: 'column-reverse',justifyContent: 'center', alignItems: 'center'}}>
-         <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
-          <View style={{flex: 1,
-                     flexDirection: 'row',
-                     alignItems: 'center',
-                     justifyContent: 'center',}}>
-          <View style={{flex: 1}}>
-           <Button
-             title='닫기'
-             style={{flex: 1}}
-             textStyle={{fontFamily:'BMHANNA11yrsold'}}
-             backgroundColor='#74b9ff'
-             borderRadius={5}
-             onPress={() => this.setState({modal:null})}/>
-              </View>
-              <View style={{flex: 1}}>
-                <Button
-                  title='확인'
-                  textStyle={{fontFamily:'BMHANNA11yrsold'}}
-                  style={{flex: 1}}
-                  backgroundColor='#74b9ff'
-                  borderRadius={5}
-                  onPress={() =>this._reduceHeart(this.state.inviteUserIdList)}
-                  />
-                </View>
-              </View>
-             </View>
-             </View>
-           </Modal>
+     (this.state.heart > 4 ?
+     <SAlert
+       visible={this.state.modal == '열기'}
+       title={'선택한 상대방과 채팅방을 엽니다.'}
+       subtitle={'하트 5개를 사용합니다.'}
+       onPressLeftButton={() => this.setState({modal:null})}
+       onPressRightButton={() => this.setState({modal:null})}
+     />
+     :
+     <SAlert
+       visible={this.state.modal == '스토어가기'}
+       title={'하트가 부족합니다.'}
+       subtitle={'스토어로 이동합니다.'}
+       onPressLeftButton={() => this.setState({modal:null}, this.props.navigation.navigate('StoreStack'))}
+       onPressRightButton={() => this.setState({modal:null})}
+     />
    )
+  )
  }
 
  _goToStore(){
@@ -159,11 +141,11 @@ class List extends Component {
    return(
     <View style>
      <Modal
-       animationType="fade "
+       animationType="fade"
        transparent={true}
        backdropColor="black"
        visible={this.state.modal == '스토어가기'}>
-       <View style={{flex:1, flexDirection: 'column-reverse',justifyContent: 'center'}}>
+       <View style={{flex:1, flexDirection: 'column-reverse', justifyContent: 'center'}}>
          <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
          <View>
          <Text style={{fontFamily:'BMHANNA11yrsold',

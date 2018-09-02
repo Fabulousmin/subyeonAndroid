@@ -22,22 +22,15 @@ import Start from './screens/Start';
 import Store from './screens/Store';
 import ChatSelection from './screens/ChatSelection';
 import { StackNavigator, TabNavigator, SwitchNavigator } from 'react-navigation';
+
 const LoginStack = StackNavigator({
    Login: { screen: Login },
+   Register: {screen:Register }
 }
 ,{
    initialRouteName: 'Login',
    headerMode:'none'
    });
-
-
-const RegisterStack = StackNavigator({
-      Register:{screen:Register}
-   }
-   ,{
-      initialRouteName: 'Register',
-      headerMode:'none'
-      });
 
 
 const ProfileInitStack = StackNavigator(
