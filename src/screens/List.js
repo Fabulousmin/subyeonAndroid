@@ -110,11 +110,6 @@ class List extends Component {
 
 
 
-
-
-
-
-
  _OpenChatting(){
    return(
      <Modal
@@ -158,8 +153,6 @@ class List extends Component {
    this.setState({modal:null})
    this.props.navigation.navigate('StoreStack')
  }
-
-
 
 
  _OpenStore(){
@@ -350,7 +343,7 @@ class List extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Spinner visible={this.state.isLoading} />
         <SHeader
           onLeftPress={()=>this.props.navigation.navigate('StoreStack')}
