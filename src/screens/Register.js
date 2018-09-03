@@ -29,7 +29,9 @@ class Register extends Component {
 
       componentWillReceiveProps(props) {
           let {user, error} = props;
+          this.setState({isLoading:false})
           if (user) {
+              this.setState({isLoading:true})
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
@@ -38,7 +40,7 @@ class Register extends Component {
                     })
                   }
           if (error) {
-              this.setState({isLoading: false,userId:'',password:'',paswordCheck:''})
+              this.setState({userId:'',password:'',paswordCheck:''},()=>{
               this.props.initregister();
               Alert.alert(
           '이메일을 확인해주세요',
@@ -46,8 +48,10 @@ class Register extends Component {
            [
                {text: '확인'}
            ])
-          }
+         })
       }
+    }
+
 
 
 
@@ -75,7 +79,7 @@ class Register extends Component {
               this.props.userRegister({userId, password });
         })}
         else{
-          this.setState({isLoading: false,password:'',paswordCheck:''})
+          this.setState({isLoading:false,password:'',paswordCheck:''})
           Alert.alert(
       '비밀번호를 확인해주세요',
        '비밀번호가 다릅니다',

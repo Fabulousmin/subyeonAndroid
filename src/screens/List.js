@@ -19,6 +19,7 @@ import { initUserlist,
   getCurrentUserInfo,
   initHeart,
   getHeart,
+  updateHeart,
 } from '../actions';
 import { UserList } from '../UserList';
 import { CardImage, Spinner, SHeader, SAlert} from '../components';
@@ -101,9 +102,9 @@ class List extends Component {
     heart.on('child_added',function(snap){
       arr.push(snap.val())})
     const userheart = arr[2]
-    console.log('유저하트',userheart)
     const updatedheart = userheart - 5
-    database.ref('users/'+currentuser).update({heart:updatedheart})
+    this.props.updateHeart(updatedheart);
+    this.props.getHeart()
     this.setState({modal:null})
     const isDistinct = true;
     this.props.createGroupChannel(inviteUserIdList, isDistinct);
@@ -126,7 +127,7 @@ class List extends Component {
        visible={this.state.modal == '스토어가기'}
        title={'하트가 부족합니다.'}
        subtitle={'스토어로 이동합니다.'}
-       onPressLeftButton={() => this.setState({modal:null}, this.props.navigation.navigate('StoreStack'))}
+       onPressLeftButton={() =>this._goToStore()}
        onPressRightButton={() => this.setState({modal:null})}
      />
    )
@@ -139,59 +140,6 @@ class List extends Component {
  }
 
 
- _OpenStore(){
-   return(
-    <View style>
-     <Modal
-       animationType="fade"
-       transparent={true}
-       backdropColor="black"
-       visible={this.state.modal == '스토어가기'}>
-       <View style={{flex:1, flexDirection: 'column-reverse', justifyContent: 'center'}}>
-         <View style={{width:width , height: height/3, backgroundColor: '#FFFFFF' }}>
-         <View>
-         <Text style={{fontFamily:'BMHANNA11yrsold',
-         textAlign: 'center',
-         color:'#74b9ff',
-         marginTop:10,
-       fontSize:20}}>
-       하트가 부족합니다.</Text>
-         </View>
-         <View>
-         <Text style={{fontFamily:'BMHANNA11yrsold',
-         textAlign: 'center',
-         marginTop:20,
-         color:'#708090',
-       fontSize:20}}>
-       하트5개를 사용합니다</Text>
-         </View>
-          <View style={{flex: 1,
-                     flexDirection: 'row',
-                     alignItems: 'center',
-                     justifyContent: 'center',
-                   marginTop:130,}}>
-          <View style={{flex:1}}>
-           <Button
-             title='취소하기'
-             textStyle={{fontFamily:'BMHANNA11yrsold'}}
-             backgroundColor='#74b9ff'
-             onPress={() => this.setState({modal:null})}/>
-              </View>
-              <View style={{flex:1}}>
-                <Button
-                  title='충전하기'
-                  textStyle={{fontFamily:'BMHANNA11yrsold'}}
-                  backgroundColor='#74b9ff'
-                  onPress={() => this._goToStore()}
-                  />
-                </View>
-              </View>
-             </View>
-             </View>
-           </Modal>
-          </View>
-   )
- }
 
 
 
@@ -336,7 +284,7 @@ class List extends Component {
         />
         {this.renderFlatList()}
         {this._OpenChatting()}
-        {this._OpenStore()}
+
       </View>
     );
   }
@@ -374,5 +322,6 @@ export default connect(
       getCurrentUserInfo,
       initHeart,
       getHeart,
+      updateHeart,
     }
 )(List);
