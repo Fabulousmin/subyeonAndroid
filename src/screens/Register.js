@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, AsyncStorage, KeyboardAvoidingView,Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { FormLabel, FormInput, FormValidationMessage, Button, Text } from 'react-native-elements'
+import { FormLabel, FormInput, FormValidationMessage, Button, Text, Header, Icon } from 'react-native-elements'
 import { initregister,userRegister,getCurrentUserInfo } from '../actions';
 import {sbRegisterPushToken,sbCreateUserListQuery,sbGetUserList} from '../sendbirdActions';
 import { Spinner } from '../components';
@@ -75,7 +75,9 @@ class Register extends Component {
               this.props.userRegister({userId, password });
         })}
         else{
+          console.log(this.state);
           this.setState({isLoading: false,password:'',paswordCheck:''})
+          console.log(this.state);
           Alert.alert(
       '비밀번호를 확인해주세요',
        '비밀번호가 다릅니다',
@@ -94,25 +96,32 @@ class Register extends Component {
 
     render() {
         return (
-          <View
+            <View
               style={styles.container}
               behavior="padding"
               enabled>
-                <Spinner visible={this.state.isLoading}/>
+              <Spinner visible={this.state.isLoading}/>
+              <Header
+                leftComponent={<Icon
+                  name= 'clear'
+                  color='#8395a7'
+                  onPress={() => this.props.navigation.goBack()}
+                />}
+                outerContainerStyles={{ borderBottomWidth: 0 }}
+                backgroundColor='transparent'
+              />
                 <View style={styles.titleContainer}>
-                  <Text h2 style={styles.title}>회원가입</Text>
+                  <Text h3 style={styles.title}>회원가입</Text>
                 </View>
                 <View style={styles.formContainer}>
                       <FormLabel
-                        labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
                       >이메일
                       </FormLabel>
                       <FormInput
                           placeholder="user@email.com"
-                          placeholderTextColor="rgba(255,255,255,0.5)"
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold'}}
                           returnKeyType="next"
                           keyboardType="email-address"
                           autoCorrect={false}
@@ -122,16 +131,14 @@ class Register extends Component {
                           onChangeText={this._onUserIdChanged}
                       />
                       <FormLabel
-                        labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
                       >비밀번호
                       </FormLabel>
                       <FormInput
                           placeholder="password"
-                          placeholderTextColor="rgba(255,255,255,0.5)"
                           secureTextEntry
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold'}}
                           returnKeyType="next"
                           autoCorrect={false}
                           maxLength={30}
@@ -140,16 +147,14 @@ class Register extends Component {
                           onChangeText={this._onPasswordChanged}
                       />
                       <FormLabel
-                        labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
                       >비밀번호 확인
                       </FormLabel>
                       <FormInput
                           placeholder="password"
-                          placeholderTextColor="rgba(255,255,255,0.5)"
                           secureTextEntry
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold'}}
                           returnKeyType="next"
                           autoCorrect={false}
                           maxLength={30}
@@ -157,27 +162,18 @@ class Register extends Component {
                           value={this.state.paswordCheck}
                           onChangeText={this._onPasswordCheckChanged}
                       />
-                      <Button
-                        title='뒤로가기'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
-                        backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.goBack()}
-                        disabled={this.state.isLoading}
-                        borderRadius={5}
-                      />
-                      <Button
-                        title='회원가입'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
-                        backgroundColor='#54a0ff'
-                        onPress={this._onReigserButtonPress}
-                        disabled={this.state.isLoading}
-                        borderRadius={5}
-                      />
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
+              </View>
+              <View style={styles.footerContainer}>
+                <Button
+                  title='회원가입'
+                  style={{marginTop:5}}
+                  textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
+                  backgroundColor='#54a0ff'
+                  onPress={this._onReigserButtonPress}
+                  disabled={this.state.isLoading}
+                  borderRadius={5}
+                />
               </View>
           </View>
         );
@@ -193,15 +189,22 @@ export default connect(mapStateToProps, {userRegister,initregister})(Register);
 
 const styles = {
     container: {
-        backgroundColor: '#74b9ff',
         flex: 1,
+        paddingHorizontal:10
     },
     titleContainer:{
-    padding:50,
-    alignItems:'center'
+      flex:1,
+      paddingHorizontal:15,
+      justifyContent:'center'
     },
     title:{
-      color:'#dfe6e9'
+      fontFamily:'BMHANNA11yrsold'
+    },
+    formContainer:{
+      flex:7
+    },
+    footerContainer:{
+      flex:1
     },
     errorTextStyle: {
         alignSelf: 'center',

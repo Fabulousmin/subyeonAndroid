@@ -102,14 +102,12 @@ class Login extends Component {
                     title='회원가입'
                     backgroundColor='transparent'
                     onPress={() => this.props.navigation.navigate('Register')}
-                    disabled={this.state.isLoading}
                   />
                   <Button
                     title='비밀번호 찾기'
                     backgroundColor='transparent'
                     onPress={() => this.props.navigation.navigate('Forgot')}
                     style={{width:110}}
-                    disabled={this.state.isLoading}
                   />
                 </View>
                 <View style={styles.logoContainer}>

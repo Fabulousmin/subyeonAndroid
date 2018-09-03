@@ -27,6 +27,8 @@ export default class Forgot extends Component {
     }.bind(this))
     .catch(function(error) {
       console.log('fail to send email');
+      this.setState({message:error.message})
+      console.log(error)
     }.bind(this));
   }
 
