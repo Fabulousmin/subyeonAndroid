@@ -39,6 +39,7 @@ const RegisterAlert = (props) => {
   )
 }
 
+
 const styles= {
   container:{
     flex:1,
