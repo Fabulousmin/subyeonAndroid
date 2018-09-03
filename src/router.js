@@ -7,6 +7,7 @@ import GroupChannelInvite from './screens/GroupChannelInvite';
 import List from './screens/List';
 import Login from './screens/Login';
 import Register from './screens/Register';
+import Forgot from './screens/Forgot'
 import Member from './screens/Member';
 import Menu from './screens/Menu';
 import OpenChannel from './screens/OpenChannel';
@@ -21,11 +22,13 @@ import ProfileInit6 from './screens/ProfileInit6';
 import Start from './screens/Start';
 import Store from './screens/Store';
 import ChatSelection from './screens/ChatSelection';
+
 import { StackNavigator, TabNavigator, SwitchNavigator } from 'react-navigation';
 
 const LoginStack = StackNavigator({
-   Login: { screen: Login },
-   Register: {screen:Register }
+   Login: { screen:Login },
+   Register: { screen:Register },
+   Forgot: {screen: Forgot }
 }
 ,{
    initialRouteName: 'Login',

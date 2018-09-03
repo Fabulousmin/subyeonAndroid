@@ -95,7 +95,23 @@ class Login extends Component {
               behavior="padding"
               enabled
           >
+
                 <Spinner visible={this.state.isLoading} />
+                <View style={styles.headerContainer}>
+                  <Button
+                    title='회원가입'
+                    backgroundColor='transparent'
+                    onPress={() => this.props.navigation.navigate('Register')}
+                    disabled={this.state.isLoading}
+                  />
+                  <Button
+                    title='비밀번호 찾기'
+                    backgroundColor='transparent'
+                    onPress={() => this.props.navigation.navigate('Forgot')}
+                    style={{width:110}}
+                    disabled={this.state.isLoading}
+                  />
+                </View>
                 <View style={styles.logoContainer}>
                     <Image
                         style={{ width: 150, height: 150 }}
@@ -142,18 +158,8 @@ class Login extends Component {
                           onChangeText={this._onPasswordChanged}
                       />
                       <Button
-                        title='회원가입'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
-                        backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.navigate('Register')}
-                        disabled={this.state.isLoading}
-                        borderRadius={5}
-                      />
-                      <Button
                         title='로그인'
-                        style={{marginTop:5}}
+                        style={{marginTop:10}}
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'
@@ -163,7 +169,7 @@ class Login extends Component {
                       />
                       <Button
                         title='카카오톡으로 로그인'
-                        style={{marginTop:5}}
+                        style={{marginTop:10}}
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         backgroundColor='#fcd411'
                         onPress={this._onKakaoButtonPress.bind(this)}
@@ -187,6 +193,12 @@ const styles = {
     containerStyle: {
         backgroundColor: '#74b9ff',
         flex: 1
+    },
+    headerContainer:{
+        flex: 1,
+        marginTop: 15,
+        flexDirection:'row',
+        justifyContent:'space-between'
     },
     logoContainer: {
         flex: 5,

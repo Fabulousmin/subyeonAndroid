@@ -23,7 +23,7 @@ class Register extends Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.props.initregister();
       }
 
