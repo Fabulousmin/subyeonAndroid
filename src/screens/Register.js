@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Image, AsyncStorage, KeyboardAvoidingView,Alert } from 'react-native';
+import { View, Image, AsyncStorage, KeyboardAvoidingView} from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage, Button, Text } from 'react-native-elements'
 import { initregister,userRegister,getCurrentUserInfo } from '../actions';
 import {sbRegisterPushToken,sbCreateUserListQuery,sbGetUserList} from '../sendbirdActions';
-import { Spinner } from '../components';
+import { Spinner,RegisterAlert } from '../components';
 import SendBird from 'sendbird';
 import firebase from '@firebase/app'
 
@@ -20,6 +20,7 @@ class Register extends Component {
             userId: '',
             password: '',
             paswordCheck:'',
+            modal:null,
         };
     }
 
@@ -29,29 +30,43 @@ class Register extends Component {
 
       componentWillReceiveProps(props) {
           let {user, error} = props;
-          this.setState({isLoading:false})
           if (user) {
-              this.setState({isLoading:true})
-              AsyncStorage.getItem('pushToken', (err, pushToken) => {
-                  if (pushToken) {
-                      sbRegisterPushToken(pushToken)
-                          .then(res => { this.props.navigation.navigate('ProfileInitStack')})
-                          .catch(err => {})}
-                    })
+                    this.props.navigation.goBack();
                   }
           if (error) {
-              this.setState({userId:'',password:'',paswordCheck:''},()=>{
+              this._onResetFormat();
               this.props.initregister();
-              Alert.alert(
-          '이메일을 확인해주세요',
-           '중복된 이메일이 있습니다.',
-           [
-               {text: '확인'}
-           ])
-         })
+              this.setState({modal:'이메일'})
       }
     }
 
+
+
+    _AlertMessage(){
+      return(
+        (this.state.modal ==='이메일' ?
+        <RegisterAlert
+          visible={this.state.modal == '이메일'}
+          title={'이메일 중복'}
+          subtitle={'중복된 이메일이 있습니다.'}
+          onPressButton={() => this.setState({modal:null})}
+        />
+        :
+        <RegisterAlert
+          visible={this.state.modal == '비밀번호'}
+          title={'비밀번호 오류'}
+          subtitle={'비밀번호가 일치하지 않습니다.'}
+          onPressButton={() => this.setState({modal:null})}
+        />
+      )
+     )
+    }
+
+
+
+      _onResetFormat = () => {
+          this.setState({isLoading:false,password:'',paswordCheck:''})
+        }
 
 
 
@@ -75,17 +90,12 @@ class Register extends Component {
       }
       else{
         if (password === paswordCheck){
-          this.setState({ isLoading: true }, () => {
-              this.props.userRegister({userId, password });
-        })}
+          this.setState({ isLoading: true })
+          this.props.userRegister({userId, password})
+        }
         else{
           this.setState({isLoading:false,password:'',paswordCheck:''})
-          Alert.alert(
-      '비밀번호를 확인해주세요',
-       '비밀번호가 다릅니다',
-       [
-           {text: '확인'}
-       ])
+          this.setState({modal:'비밀번호'})
         }
       }
     }
@@ -183,6 +193,7 @@ class Register extends Component {
                       />
                 <Text style={styles.errorTextStyle}>{this.props.error}</Text>
               </View>
+              {this._AlertMessage()}
           </View>
         );
     }
