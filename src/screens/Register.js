@@ -38,7 +38,7 @@ class Register extends Component {
                     })
                   }
           if (error) {
-              this.setState({ isLoading: false,userId:'',password:'',paswordCheck:''})
+              this.setState({isLoading: false,userId:'',password:'',paswordCheck:''})
               this.props.initregister();
               Alert.alert(
           '이메일을 확인해주세요',
@@ -75,6 +75,7 @@ class Register extends Component {
               this.props.userRegister({userId, password });
         })}
         else{
+          this.setState({isLoading: false,password:'',paswordCheck:''})
           Alert.alert(
       '비밀번호를 확인해주세요',
        '비밀번호가 다릅니다',

@@ -64,6 +64,7 @@ class List extends Component {
    }
 
    onCreateButtonPress = (sendId) => {
+     console.log('아이디아이디',sendId)
     const inviteUserIdList = [sendId]
     this.setState({inviteUserIdList:sendId})
     const arr=[];
@@ -91,8 +92,8 @@ class List extends Component {
         })
       }
 
-  _reduceHeart(sendId){
-    const inviteUserIdList = [sendId]
+  _reduceHeart(){
+    const inviteUserIdList = [this.state.inviteUserIdList]
     const arr=[];
     const currentuser  = firebase.auth().currentUser.uid
     const database = firebase.database();
@@ -100,6 +101,7 @@ class List extends Component {
     heart.on('child_added',function(snap){
       arr.push(snap.val())})
     const userheart = arr[2]
+    console.log('유저하트',userheart)
     const updatedheart = userheart - 5
     database.ref('users/'+currentuser).update({heart:updatedheart})
     this.setState({modal:null})
@@ -116,7 +118,7 @@ class List extends Component {
        visible={this.state.modal == '열기'}
        title={'선택한 상대방과 채팅방을 엽니다.'}
        subtitle={'하트 5개를 사용합니다.'}
-       onPressLeftButton={() => this.setState({modal:null})}
+       onPressLeftButton={() => this._reduceHeart()}
        onPressRightButton={() => this.setState({modal:null})}
      />
      :

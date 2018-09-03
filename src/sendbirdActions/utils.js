@@ -6,12 +6,13 @@ export const sbGetChannelTitle = (channel) => {
     if (channel.isOpenChannel()) {
         return channel.name
     } else {
-        const {members,inviter} = channel;
+        const {members,inviter} = channel
+        const currentUserNickname = inviter.nickname
         let nicknames = members.map((member) => {
             return member.nickname
         }).join(',');
         const nicknameList = nicknames.split(',')
-
+        nicknameList.splice(nicknameList.indexOf(currentUserNickname),1);
         return nicknameList[0];
     }
 }
