@@ -19,9 +19,9 @@ export const sendbirdLogin = ({ userId, password }) => {
         .then(user => {
           sbConnect(userId)
         .then((user) => {loginSuccess(dispatch, user)})
-        .catch((error) => {loginFail(dispatch, error.message)});
+        .catch((error) => {loginFail(dispatch, error)});
       })
-      .catch((error) => {loginFail(dispatch, error.message)})
+      .catch((error) => {loginFail(dispatch, error)})
     }
 }
 
@@ -48,18 +48,18 @@ export const kakaoLogin = () => {
           const userId = user.email;
           sbConnect(userId)
           .then((user) => loginSuccess(dispatch, user))
-          .catch((error) => loginFail(dispatch, error.message));
+          .catch((error) => loginFail(dispatch, error));
         })
         .catch( error => {
           var errorCode = error.code;
           var errorMessage = error.message;
           console.log('error code:' + errorCode,'error message:' + errorMessage );
-          loginFail(dispatch, error.message);
+          loginFail(dispatch, error);
         });
 
       })
       .catch( error => {console.log(error);
-        loginFail(dispatch, error.message);
+        loginFail(dispatch, error);
       });
     })
   }

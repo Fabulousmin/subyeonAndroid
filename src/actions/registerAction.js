@@ -16,7 +16,7 @@ export const userRegister=({userId,password}) =>{
     .then((user) => {registerSuccess(dispatch,user)
     console.log('user created')
   })
-    .catch((error) => {registerFail(dispatch, error.message)});
+    .catch((error) => {registerFail(dispatch, error)});
   }
 }
 

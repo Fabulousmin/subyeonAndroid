@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Image, AsyncStorage, KeyboardAvoidingView,Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage, Button, Text, Header, Icon } from 'react-native-elements'
-import { initregister,userRegister,getCurrentUserInfo } from '../actions';
+import { initregister, userRegister, getCurrentUserInfo } from '../actions';
 import {sbRegisterPushToken,sbCreateUserListQuery,sbGetUserList} from '../sendbirdActions';
-import { Spinner } from '../components';
+import { Spinner, SAlert } from '../components';
 import SendBird from 'sendbird';
 import firebase from '@firebase/app'
 
@@ -20,6 +20,7 @@ class Register extends Component {
             userId: '',
             password: '',
             paswordCheck:'',
+            modal:null,
         };
     }
 
@@ -29,27 +30,31 @@ class Register extends Component {
 
       componentWillReceiveProps(props) {
           let {user, error} = props;
-          this.setState({isLoading:false})
           if (user) {
-              this.setState({isLoading:true})
+              this.setState({isLoading:false})
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
-                          .then(res => { this.props.navigation.navigate('ProfileInitStack')})
+                          .then(res => {
+                            const currentUser = firebase.auth().currentUser;
+                            currentUser.sendEmailVerification()
+                            .then(() => {
+                              this.props.navigation.navigate('Start')
+                            })
+                            .catch(() => {
+                              Alert.alert(
+                                '인증메일 발송 실패'
+                                )
+                              })
+                            }
+                          )
                           .catch(err => {})}
                     })
                   }
           if (error) {
-              this.setState({userId:'',password:'',paswordCheck:''},()=>{
-              this.props.initregister();
-              Alert.alert(
-          '이메일을 확인해주세요',
-           '중복된 이메일이 있습니다.',
-           [
-               {text: '확인'}
-           ])
-         })
-      }
+              this.setState({isLoading:false, userId:'',password:'',paswordCheck:'', modal:error.code})
+              console.log(error)
+            }
     }
 
 
@@ -79,15 +84,41 @@ class Register extends Component {
               this.props.userRegister({userId, password });
         })}
         else{
-          this.setState({isLoading:false,password:'',paswordCheck:''})
+          this.setState({isLoading:false, password:'',paswordCheck:''})
           Alert.alert(
-      '비밀번호를 확인해주세요',
+       '비밀번호를 확인해주세요',
        '비밀번호가 다릅니다',
        [
            {text: '확인'}
        ])
         }
       }
+    }
+
+    _renderAlert = (modal) => {
+      let message = ''
+      let visible = false
+      switch(modal) {
+        case 'auth/email-already-in-use':
+          message='이미 사용중인 이메일입니다.'
+          visible=true
+        case 'auth/invalid-email':
+          message='유효하지 않은 이메일입니다.'
+          visible=true
+        case 'auth/weak-password':
+          message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
+          visible=true
+        default:
+          meesage=''
+      }
+      return(
+      <SAlert
+        title='오류'
+        visible={visible}
+        subtitle={message}
+        onPressLeftButton={() => this.setState({modal: null})}
+        onPressRightButton={() => this.setState({modal: null})}
+      />)
     }
 
 
@@ -164,7 +195,6 @@ class Register extends Component {
                           value={this.state.paswordCheck}
                           onChangeText={this._onPasswordCheckChanged}
                       />
-                <Text style={styles.errorTextStyle}>{this.props.error}</Text>
               </View>
               <View style={styles.footerContainer}>
                 <Button
@@ -177,6 +207,7 @@ class Register extends Component {
                   borderRadius={5}
                 />
               </View>
+              {this._renderAlert(this.state.modal)}
           </View>
         );
     }

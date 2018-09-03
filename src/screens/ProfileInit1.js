@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View , StyleSheet } from 'react-native';
-import { Text, Button, Header, List, ListItem } from 'react-native-elements';
+import { Text, Button, Header, List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { initProfile } from '../actions';
 
@@ -20,7 +20,11 @@ class ProfileInit1 extends Component {
     return (
       <View style = {styles.container}>
         <Header
-          leftComponent={{ icon: 'clear', color: '#8395a7' }}
+          leftComponent={<Icon
+            name='clear'
+            color='#8395a7'
+            onPress={()=>this.props.navigation.navigate('LoginStack')}
+          />}
           backgroundColor='transparent'
         />
         <View style = {styles.formContainer}>

@@ -16,4 +16,3 @@ export {
 export * from './CardImage';
 export * from './SHeader';
 export * from './SAlert';
-export * from './RegisterAlert';

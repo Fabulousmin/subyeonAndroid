@@ -23,6 +23,8 @@ class Start extends Component {
      componentDidMount() {
       firebase.auth().onAuthStateChanged((user) => {
         if(user) {
+          const currentUser = firebase.auth().currentUser;
+          if(currentUser.emailVerified)
           {AsyncStorage.getItem("user", (err, result) => {
               if(result) {
                   this.setState({ isLoading: true }, () => {
@@ -75,6 +77,7 @@ class Start extends Component {
               }
               else this.props.navigation.navigate('LoginStack');
           })}
+          else this.props.navigation.navigate('EmailVerification');
         }
         else{
           this.props.navigation.navigate('LoginStack');

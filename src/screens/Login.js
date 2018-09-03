@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage, Button, Text } from 'react-native-elements'
 import { initLogin, sendbirdLogin, kakaoLogin, getCurrentUserInfo } from '../actions';
 import {sbRegisterPushToken} from '../sendbirdActions';
-import { Spinner } from '../components';
+import { Spinner, SAlert } from '../components';
 import SendBird from 'sendbird';
 
 
@@ -17,7 +17,8 @@ class Login extends Component {
         this.state = {
             isLoading: false,
             userId: '',
-            password: ''
+            password: '',
+            modal:null,
         };
     }
 
@@ -26,37 +27,21 @@ class Login extends Component {
       }
 
       componentWillReceiveProps(props) {
-          async () => await getCurrentUserInfo();
           let { user, error, userInfo } = props;
           if (user) {
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
-                          .then(res => {})
+                          .then(res => {this.props.navigation.navigate('Start')})
                           .catch(err => {})
                     }
-                  this.checkUsers()
-                  .then((currentUserNickname)=>{
-                    if(currentUserNickname!=="") {
-                      this.props.navigation.navigate('MainStack')
-                    }
-                    else{
-                      this.props.navigation.navigate('ProfileInitStack')
-                    }
                       })
-                    })
                   }
           if (error) {
-              this.setState({ isLoading: false,password:''})
+              this.setState({ isLoading: false, password:'', modal:error.code})
               this.props.initLogin();
           }
       }
-      async checkUsers(){
-      const sb = SendBird.getInstance();
-      const currentUserNickname = sb.currentUser.nickname
-      return currentUserNickname
-    }
-
 
 
     _onUserIdChanged = (userId) => {
@@ -85,6 +70,35 @@ class Login extends Component {
       this.setState({ isLoading: true }, () => {
         this.props.kakaoLogin();
       });
+    }
+
+    _renderAlert = (modal) => {
+      let message = ''
+      let visible = false
+      switch(modal) {
+        case 'auth/user-disabled':
+          message='이용 정지된 계정입니다.'
+          visible=true
+        case 'auth/invalid-email':
+          message='유효하지 않은 이메일입니다.'
+          visible=true
+        case 'auth/weak-password':
+          message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
+          visible=true
+        case 'auth/user-not-found':
+          message='존재하지 않는 계정입니다.'
+          visible=true
+        default:
+          meesage=''
+      }
+      return(
+      <SAlert
+        title='오류'
+        visible={visible}
+        subtitle={message}
+        onPressLeftButton={() => this.setState({modal: null})}
+        onPressRightButton={() => this.setState({modal: null})}
+      />)
     }
 
 
@@ -172,8 +186,9 @@ class Login extends Component {
                         backgroundColor='#fcd411'
                         onPress={this._onKakaoButtonPress.bind(this)}
                         borderRadius={5}/>
-                <Text style={styles.errorTextStyle}>{this.props.error}</Text>
               </View>
+              {this._renderAlert(this.state.modal)}
+
           </KeyboardAvoidingView>
         );
     }
