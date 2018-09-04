@@ -94,6 +94,7 @@ class Register extends Component {
       console.log('모달',modal)
       let message = ''
       let visible = false
+<<<<<<< HEAD
       if(modal ==='auth/email-already-in-use'){
         message='이미 사용중인 이메일입니다.'
         visible=true
@@ -113,6 +114,24 @@ class Register extends Component {
       else if(modal ==='발송실패'){
         message='인증 이메일 발송을 실패했습니다.'
         visible=true
+=======
+      switch(modal) {
+        case 'auth/email-already-in-use':
+          message='이미 사용중인 이메일입니다.'
+          visible=true
+          break
+        case 'auth/invalid-email':
+          message='유효하지 않은 이메일입니다.'
+          visible=true
+          break
+        case 'auth/weak-password':
+          message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
+          visible=true
+          break
+        default:
+          meesage=''
+          break
+>>>>>>> d0539e3f409a69fd7212d1e6e7cf6b045b473f55
       }
       else {
         meesage=''

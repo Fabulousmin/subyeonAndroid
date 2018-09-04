@@ -79,17 +79,22 @@ class Login extends Component {
         case 'auth/user-disabled':
           message='이용 정지된 계정입니다.'
           visible=true
+          break
         case 'auth/invalid-email':
           message='유효하지 않은 이메일입니다.'
           visible=true
+          break
         case 'auth/weak-password':
           message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
           visible=true
+          break
         case 'auth/user-not-found':
           message='존재하지 않는 계정입니다.'
           visible=true
+          break
         default:
           meesage=''
+          break
       }
       return(
       <SAlert
