@@ -67,7 +67,6 @@ class ProfileInit3 extends Component {
               value={this.state.nickname}
               autoCorrection={false}
             />
-            {this.renderValidationMessage(this.state.duplicated)}
           </View>
         </View>
         <View style ={styles.buttonContainer}>

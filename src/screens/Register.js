@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Image, AsyncStorage, KeyboardAvoidingView} from 'react-native';
+import { View, Image, AsyncStorage, KeyboardAvoidingView,Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { FormLabel, FormInput, FormValidationMessage, Button, Text } from 'react-native-elements'
-import { initregister,userRegister,getCurrentUserInfo } from '../actions';
+import { FormLabel, FormInput, FormValidationMessage, Button, Text, Header, Icon } from 'react-native-elements'
+import { initregister, userRegister, getCurrentUserInfo } from '../actions';
 import {sbRegisterPushToken,sbCreateUserListQuery,sbGetUserList} from '../sendbirdActions';
-import { Spinner,RegisterAlert } from '../components';
+import { Spinner, SAlert } from '../components';
 import SendBird from 'sendbird';
 import firebase from '@firebase/app'
 
@@ -24,49 +24,36 @@ class Register extends Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.props.initregister();
       }
 
       componentWillReceiveProps(props) {
           let {user, error} = props;
           if (user) {
-                    this.props.navigation.goBack();
+              this.setState({isLoading:false})
+              AsyncStorage.getItem('pushToken', (err, pushToken) => {
+                  if (pushToken) {
+                      sbRegisterPushToken(pushToken)
+                          .then(res => {
+                            const currentUser = firebase.auth().currentUser;
+                            currentUser.sendEmailVerification()
+                            .then(() => {
+                              this.props.navigation.navigate('Start')
+                            })
+                            .catch(() => {
+                              this.setState({modal:'발송실패'})
+                              })
+                            }
+                          )
+                          .catch(err => {})}
+                    })
                   }
           if (error) {
-              this._onResetFormat();
-              this.props.initregister();
-              this.setState({modal:'이메일'})
-      }
+              this.setState({isLoading:false, userId:'',password:'',paswordCheck:'', modal:error.code})
+              console.log('에러메시지',error.code)
+            }
     }
-
-
-
-    _AlertMessage(){
-      return(
-        (this.state.modal ==='이메일' ?
-        <RegisterAlert
-          visible={this.state.modal == '이메일'}
-          title={'이메일 중복'}
-          subtitle={'중복된 이메일이 있습니다.'}
-          onPressButton={() => this.setState({modal:null})}
-        />
-        :
-        <RegisterAlert
-          visible={this.state.modal == '비밀번호'}
-          title={'비밀번호 오류'}
-          subtitle={'비밀번호가 일치하지 않습니다.'}
-          onPressButton={() => this.setState({modal:null})}
-        />
-      )
-     )
-    }
-
-
-
-      _onResetFormat = () => {
-          this.setState({isLoading:false,password:'',paswordCheck:''})
-        }
 
 
 
@@ -90,43 +77,89 @@ class Register extends Component {
       }
       else{
         if (password === paswordCheck){
-          this.setState({ isLoading: true })
-          this.props.userRegister({userId, password})
-        }
+          this.setState({ isLoading: true }, () => {
+              this.props.userRegister({userId, password });
+        })}
         else{
-          this.setState({isLoading:false,password:'',paswordCheck:''})
+          this.setState({isLoading:false, password:'',paswordCheck:''})
           this.setState({modal:'비밀번호'})
+
+
         }
       }
     }
 
 
+    _renderAlert = (modal) => {
+      console.log('모달',modal)
+      let message = ''
+      let visible = false
+      if(modal ==='auth/email-already-in-use'){
+        message='이미 사용중인 이메일입니다.'
+        visible=true
+      }
+      else if(modal ==='auth/invalid-email'){
+        message='유효하지 않은 이메일입니다.'
+        visible=true
+      }
+      else if(modal ==='auth/weak-password'){
+        message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
+        visible=true
+      }
+      else if(modal ==='비밀번호'){
+        message='비밀번호가 일치하지 않습니다.'
+        visible=true
+      }
+      else if(modal ==='발송실패'){
+        message='인증 이메일 발송을 실패했습니다.'
+        visible=true
+      }
+      else {
+        meesage=''
+      }
 
 
+      return(
+      <SAlert
+        title='오류'
+        visible={visible}
+        subtitle={message}
+        onPressLeftButton={() => this.setState({modal: null})}
+        onPressRightButton={() => this.setState({modal: null})}
+      />
+      )
+    }
 
 
 
     render() {
         return (
-          <View
+            <View
               style={styles.container}
               behavior="padding"
               enabled>
-                <Spinner visible={this.state.isLoading}/>
+              <Spinner visible={this.state.isLoading}/>
+              <Header
+                leftComponent={<Icon
+                  name= 'clear'
+                  color='#8395a7'
+                  onPress={() => this.props.navigation.goBack()}
+                />}
+                outerContainerStyles={{ borderBottomWidth: 0 }}
+                backgroundColor='transparent'
+              />
                 <View style={styles.titleContainer}>
-                  <Text h2 style={styles.title}>회원가입</Text>
+                  <Text h3 style={styles.title}>회원가입</Text>
                 </View>
                 <View style={styles.formContainer}>
                       <FormLabel
-                        labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
                       >이메일
                       </FormLabel>
                       <FormInput
                           placeholder="user@email.com"
-                          placeholderTextColor="rgba(255,255,255,0.5)"
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold'}}
                           returnKeyType="next"
                           keyboardType="email-address"
                           autoCorrect={false}
@@ -136,16 +169,14 @@ class Register extends Component {
                           onChangeText={this._onUserIdChanged}
                       />
                       <FormLabel
-                        labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
                       >비밀번호
                       </FormLabel>
                       <FormInput
                           placeholder="password"
-                          placeholderTextColor="rgba(255,255,255,0.5)"
                           secureTextEntry
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold'}}
                           returnKeyType="next"
                           autoCorrect={false}
                           maxLength={30}
@@ -154,16 +185,14 @@ class Register extends Component {
                           onChangeText={this._onPasswordChanged}
                       />
                       <FormLabel
-                        labelStyle={{color:'#dfe6e9'}}
                         fontFamily='BMHANNA11yrsold'
                       >비밀번호 확인
                       </FormLabel>
                       <FormInput
                           placeholder="password"
-                          placeholderTextColor="rgba(255,255,255,0.5)"
                           secureTextEntry
                           autoCapitalize="none"
-                          inputStyle={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}
+                          inputStyle={{fontFamily:'BMHANNA11yrsold'}}
                           returnKeyType="next"
                           autoCorrect={false}
                           maxLength={30}
@@ -171,29 +200,19 @@ class Register extends Component {
                           value={this.state.paswordCheck}
                           onChangeText={this._onPasswordCheckChanged}
                       />
-                      <Button
-                        title='뒤로가기'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
-                        backgroundColor='#54a0ff'
-                        onPress={() => this.props.navigation.goBack()}
-                        disabled={this.state.isLoading}
-                        borderRadius={5}
-                      />
-                      <Button
-                        title='회원가입'
-                        style={{marginTop:5}}
-                        textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
-                        icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
-                        backgroundColor='#54a0ff'
-                        onPress={this._onReigserButtonPress}
-                        disabled={this.state.isLoading}
-                        borderRadius={5}
-                      />
-                <Text style={styles.errorTextStyle}>{this.props.error}</Text>
               </View>
-              {this._AlertMessage()}
+              <View style={styles.footerContainer}>
+                <Button
+                  title='회원가입'
+                  style={{marginTop:5}}
+                  textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
+                  backgroundColor='#54a0ff'
+                  onPress={this._onReigserButtonPress}
+                  disabled={this.state.isLoading}
+                  borderRadius={5}
+                />
+              </View>
+              {this._renderAlert(this.state.modal)}
           </View>
         );
     }
@@ -208,15 +227,22 @@ export default connect(mapStateToProps, {userRegister,initregister})(Register);
 
 const styles = {
     container: {
-        backgroundColor: '#74b9ff',
         flex: 1,
+        paddingHorizontal:10
     },
     titleContainer:{
-    padding:50,
-    alignItems:'center'
+      flex:1,
+      paddingHorizontal:15,
+      justifyContent:'center'
     },
     title:{
-      color:'#dfe6e9'
+      fontFamily:'BMHANNA11yrsold'
+    },
+    formContainer:{
+      flex:7
+    },
+    footerContainer:{
+      flex:1
     },
     errorTextStyle: {
         alignSelf: 'center',
