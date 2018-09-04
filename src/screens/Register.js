@@ -102,14 +102,18 @@ class Register extends Component {
         case 'auth/email-already-in-use':
           message='이미 사용중인 이메일입니다.'
           visible=true
+          break
         case 'auth/invalid-email':
           message='유효하지 않은 이메일입니다.'
           visible=true
+          break
         case 'auth/weak-password':
           message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
           visible=true
+          break
         default:
           meesage=''
+          break
       }
       return(
       <SAlert

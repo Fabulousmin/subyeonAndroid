@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View , StyleSheet} from 'react-native';
-import { Text, Button, Header, Icon } from 'react-native-elements';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Text, Button, Header, Icon, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { SAlert } from '../components';
 import { connect } from 'react-redux';
 import { initProfile } from '../actions';
 import firebase from 'firebase';
@@ -9,7 +9,8 @@ class ProfileInit3 extends Component {
 
   state = {
     nickname:'',
-    duplicated: false,
+    duplicated: null,
+    modal:false,
   };
 
 
@@ -20,11 +21,19 @@ class ProfileInit3 extends Component {
 
   onCheckDuplicated = (nicknameInput) =>  {
      const usersRef = firebase.database().ref().child("users");
-       this.setState({duplicated: false});
-       usersRef.on('child_added',(snap)=> {
-         const { nickname } = snap.val();
-         if(nickname === nicknameInput)
-          { this.setState({duplicated: true}) }
+      this.setState({duplicated:null})
+       usersRef.once('value',(snap)=> {
+         snap.forEach(function(childSnapshot) {
+           var childKey = childSnapshot.key;
+           var { nickname } = childSnapshot.val();
+           console.log(nickname)
+          if(nickname === nicknameInput){
+            this.setState({duplicated:true})
+          }
+        }.bind(this));
+     }).then(()=> {
+       if(this.state.duplicated===null)
+       this.setState({duplicated: false})
      })
 
  }
@@ -32,10 +41,21 @@ class ProfileInit3 extends Component {
   renderValidationMessage( duplicated ) {
     if( duplicated )
     return(
-        <FormValidationMessage>중복된 닉네임이 있습니다.</FormValidationMessage>
+        <FormValidationMessage>닉네임을 확인해주세요.</FormValidationMessage>
     )
   }
 
+  _renderAlert = (modal) => {
+    let message = '중복된 닉네임이 있습니다.'
+    return(
+    <SAlert
+      title='오류'
+      visible={modal}
+      subtitle={message}
+      onPressLeftButton={() => this.setState({modal: false})}
+      onPressRightButton={() => this.setState({modal: false})}
+    />)
+  }
 
   render() {
     return (
@@ -78,8 +98,7 @@ class ProfileInit3 extends Component {
             onPress={() => {
               const { sex, age } = this.props.navigation.state.params;
               const { nickname, duplicated } = this.state;
-              if(nickname){
-                if(!this.state.duplicated){
+              if(nickname && this.state.duplicated===false){
                   console.log(this.state.nickname);
                   this.props.navigation.navigate('ProfileInit4',
                   {sex,
@@ -87,12 +106,15 @@ class ProfileInit3 extends Component {
                   nickname: this.state.nickname
                   }
                   );
-                }
+              }
+              else{
+                this.setState({modal:true});
               }
           }
         }
           />
         </View>
+        {this._renderAlert(this.state.modal)}
       </View>
 
   );
