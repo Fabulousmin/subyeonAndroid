@@ -42,9 +42,7 @@ class Register extends Component {
                               this.props.navigation.navigate('Start')
                             })
                             .catch(() => {
-                              Alert.alert(
-                                '인증메일 발송 실패'
-                                )
+                              this.setState({modal:'발송실패'})
                               })
                             }
                           )
@@ -53,10 +51,9 @@ class Register extends Component {
                   }
           if (error) {
               this.setState({isLoading:false, userId:'',password:'',paswordCheck:'', modal:error.code})
-              console.log(error)
+              console.log('에러메시지',error.code)
             }
     }
-
 
 
 
@@ -85,19 +82,19 @@ class Register extends Component {
         })}
         else{
           this.setState({isLoading:false, password:'',paswordCheck:''})
-          Alert.alert(
-       '비밀번호를 확인해주세요',
-       '비밀번호가 다릅니다',
-       [
-           {text: '확인'}
-       ])
+          this.setState({modal:'비밀번호'})
+
+
         }
       }
     }
 
+
     _renderAlert = (modal) => {
+      console.log('모달',modal)
       let message = ''
       let visible = false
+
       switch(modal) {
         case 'auth/email-already-in-use':
           message='이미 사용중인 이메일입니다.'
@@ -111,10 +108,21 @@ class Register extends Component {
           message='영문 숫자조합 8글자이상의 패스워드를 입력해주세요.'
           visible=true
           break
+        case '비밀번호':
+        message='비밀번호가 일치하지 않습니다.'
+        visible=true
+        break
+        case '발송실패':
+        message='인증 이메일 발송을 실패했습니다.'
+        visible=true
+        break
         default:
           meesage=''
           break
       }
+
+
+
       return(
       <SAlert
         title='오류'
@@ -122,12 +130,9 @@ class Register extends Component {
         subtitle={message}
         onPressLeftButton={() => this.setState({modal: null})}
         onPressRightButton={() => this.setState({modal: null})}
-      />)
+      />
+      )
     }
-
-
-
-
 
 
 

@@ -35,7 +35,6 @@ class Chat extends Component {
           backgroundColor="transparent"
           onPress={() => {
             params.handleHeaderLeft();
-            
           }}
         />
       ),
@@ -52,10 +51,9 @@ class Chat extends Component {
       textMessage: ""
     };
   }
-
   componentDidMount() {
-    this.props.initChatScreen();
     this.props.navigation.setParams({ handleHeaderLeft: this._onBackButtonPress });
+    this.props.initChatScreen();
     const { channelUrl, isOpenChannel, isFromPayload } = this.props.navigation.state.params;
     if (isOpenChannel) {
       sbGetOpenChannel(channelUrl).then(channel => this.setState({ channel }, () => this._componentInit()));
@@ -67,9 +65,11 @@ class Chat extends Component {
     if (isFromPayload) {
       AsyncStorage.removeItem("payload", () => {});
     }
-  }
+}
+
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this._onBackButtonPress);
+
   }
 
   _componentInit = () => {
@@ -92,13 +92,19 @@ class Chat extends Component {
   }
 
   _onBackButtonPress = () => {
-    const { channelUrl, isOpenChannel, _initListState } = this.props.navigation.state.params;
+    const { channelUrl, isOpenChannel, _initListState,handleHeaderLeft } = this.props.navigation.state.params;
+    const object = this.props.navigation.state.params;
+    if(object.hasOwnProperty('handleHeaderLeft')){
     if (_initListState) _initListState();
     this.setState({ isLoading: true }, () => {
       this.props.channelExit(channelUrl, isOpenChannel);
     });
     return true;
-  };
+  }
+  else{
+    return;
+  }
+}
 
   componentWillReceiveProps(props) {
     const { title, memberCount, list, exit } = props;
