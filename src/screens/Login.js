@@ -132,7 +132,7 @@ class Login extends Component {
                 <View style={styles.logoContainer}>
                     <Image
                         style={{ width: 150, height: 150 }}
-                        source={require('../img/logo.png')}
+                        source={require('../img/logo1.gif')}
                     />
                 </View>
 

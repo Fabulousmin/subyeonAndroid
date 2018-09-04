@@ -110,8 +110,9 @@ const MainTab =  TabNavigator({
         },
       }),
   tabBarOptions: {
-    activeTintColor:'#FFFFFF',
-    inactiveTintColor: '#FFFFFF'
+    activeTintColor:'#0984e3',
+    inactiveTintColor: '#b2bec3',
+    showLabel: false
   },
   tabBarPosition: 'bottom',
   animationEnabled: false,
