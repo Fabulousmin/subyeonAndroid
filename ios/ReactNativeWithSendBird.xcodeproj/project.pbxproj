@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -13,6 +14,7 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* ReactNativeWithSendBirdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactNativeWithSendBirdTests.m */; };
 		067890EA7C7545AFAE1640DF /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59471857F5B94281A1B8E0BD /* EvilIcons.ttf */; };
+		09158A73106F4D4DB8486330 /* libRNKitAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2001ADFCC7DB425D9789318F /* libRNKitAlertView.a */; };
 		0B82BD6C6500497A9D81D915 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DACAF461D66D4708B2C6D917 /* Roboto.ttf */; };
 		0B870E3D8AC847999DD11E80 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AE757E4297544CAB93FDFAB /* FontAwesome.ttf */; };
 		0D9E94BD75354C80960A9603 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EF26306210145A7B77183BD /* SimpleLineIcons.ttf */; };
@@ -72,7 +74,6 @@
 		EAB6CA85803446A4A2F22C55 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB88B6BF6CAB4546A69DB79B /* Zocial.ttf */; };
 		ED1040237F15F57593FE260E /* libPods-ReactNativeWithSendBird.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF3261E63079E6698AC07A7 /* libPods-ReactNativeWithSendBird.a */; };
 		FBBEE49FFB1F4176B12717C0 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0148341980D41A8B3146239 /* Ionicons.ttf */; };
-		09158A73106F4D4DB8486330 /* libRNKitAlertView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2001ADFCC7DB425D9789318F /* libRNKitAlertView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,6 +399,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNKakaoLogins;
 		};
+		79E9CE38214FA861008795C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DB822965A5246F79072E363 /* RNKitAlertView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNKitAlertView;
+		};
 		832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
@@ -448,6 +456,7 @@
 		171E5A2A20A1974C00C2038A /* ReactNativePermissions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePermissions.xcodeproj; path = "../node_modules/react-native-permissions/ios/ReactNativePermissions.xcodeproj"; sourceTree = "<group>"; };
 		171E5AE020A43E5C00C2038A /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		1AE757E4297544CAB93FDFAB /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		2001ADFCC7DB425D9789318F /* libRNKitAlertView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKitAlertView.a; sourceTree = "<group>"; };
 		20C33CEF0EB24B6496B8933D /* RNKakaoLogins.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKakaoLogins.xcodeproj; path = "../node_modules/react-native-kakao-logins/ios/RNKakaoLogins.xcodeproj"; sourceTree = "<group>"; };
 		26B819F58862493385EDE5DB /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKakaoLogins.a; sourceTree = "<group>"; };
 		2C226F99D2AE6509075CFE9A /* Pods-ReactNativeWithSendBird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeWithSendBird.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReactNativeWithSendBird/Pods-ReactNativeWithSendBird.debug.xcconfig"; sourceTree = "<group>"; };
@@ -462,6 +471,7 @@
 		48563CA54E2C4A42884F5B3A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		485A73BDEBB24F18964EE5EF /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		59471857F5B94281A1B8E0BD /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		5DB822965A5246F79072E363 /* RNKitAlertView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKitAlertView.xcodeproj; path = "../node_modules/rnkit-alert-view/ios/RNKitAlertView.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F61A1E213FC4497847A04BF /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -487,8 +497,6 @@
 		F130ADABBCDC489C83E903A2 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		F8DE64318A2145329FF4A94B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FA23BECE4DFB42459FBA03D5 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		5DB822965A5246F79072E363 /* RNKitAlertView.xcodeproj */ = {isa = PBXFileReference; name = "RNKitAlertView.xcodeproj"; path = "../node_modules/rnkit-alert-view/ios/RNKitAlertView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		2001ADFCC7DB425D9789318F /* libRNKitAlertView.a */ = {isa = PBXFileReference; name = "libRNKitAlertView.a"; path = "libRNKitAlertView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -776,6 +784,7 @@
 			isa = PBXGroup;
 			children = (
 				26B819F58862493385EDE5DB /* libRNKakaoLogins.a */,
+				2001ADFCC7DB425D9789318F /* libRNKitAlertView.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -784,6 +793,14 @@
 			isa = PBXGroup;
 			children = (
 				79B5BB992118B62800335982 /* libRNKakaoLogins.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		79E9CE35214FA861008795C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				79E9CE39214FA861008795C6 /* libRNKitAlertView.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1092,6 +1109,10 @@
 				{
 					ProductGroup = 79B5BB952118B62800335982 /* Products */;
 					ProjectRef = 20C33CEF0EB24B6496B8933D /* RNKakaoLogins.xcodeproj */;
+				},
+				{
+					ProductGroup = 79E9CE35214FA861008795C6 /* Products */;
+					ProjectRef = 5DB822965A5246F79072E363 /* RNKitAlertView.xcodeproj */;
 				},
 				{
 					ProductGroup = 171E595420A171FA00C2038A /* Products */;
@@ -1417,6 +1438,13 @@
 			remoteRef = 79B5BB982118B62800335982 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		79E9CE39214FA861008795C6 /* libRNKitAlertView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKitAlertView.a;
+			remoteRef = 79E9CE38214FA861008795C6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		832341B51AAA6A8300B99B32 /* libRCTText.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1617,7 +1645,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = ReactNativeWithSendBirdTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1646,7 +1674,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = ReactNativeWithSendBirdTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1706,7 +1734,7 @@
 					"\"${PODS_ROOT}/Headers/Public/react-native-fcm\"",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = ReactNativeWithSendBird/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1716,7 +1744,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.sample.reactnative;
+				PRODUCT_BUNDLE_IDENTIFIER = subyeon;
 				PRODUCT_NAME = ReactNativeWithSendBird;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1762,7 +1790,7 @@
 					"\"${PODS_ROOT}/Headers/Public/react-native-fcm\"",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = ReactNativeWithSendBird/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1772,7 +1800,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.sample.reactnative;
+				PRODUCT_BUNDLE_IDENTIFIER = subyeon;
 				PRODUCT_NAME = ReactNativeWithSendBird;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1794,7 +1822,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = "ReactNativeWithSendBird-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1830,7 +1858,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = "ReactNativeWithSendBird-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1865,7 +1893,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = "ReactNativeWithSendBird-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1900,7 +1928,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**",
-					"$(SRCROOT)\..\node_modules\rnkit-alert-view\ios/**",
+					"$(SRCROOT)..\node_modules\nnkit-alert-viewios/**",
 				);
 				INFOPLIST_FILE = "ReactNativeWithSendBird-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
