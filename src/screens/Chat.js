@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, View, FlatList, Text, Alert, AsyncStorage, BackHandler } from "react-native";
+import { Platform, View, FlatList, Text, Alert, AsyncStorage, BackHandler, KeyboardAvoidingView } from "react-native";
 import { NavigationActions } from "react-navigation";
 import Permissions from 'react-native-permissions';
 import { connect } from "react-redux";
@@ -272,29 +272,33 @@ class Chat extends Component {
 
   render() {
     return (
-      <View style={styles.containerViewStyle}>
-        <Spinner visible={this.state.isLoading} />
-        <View style={styles.messageListViewStyle}>
-          <FlatList
-            ref={elem => this.flatList = elem}
-            renderItem={this._renderList}
-            data={this.props.list}
-            extraData={this.state}
-            keyExtractor={(item, index) => item.messageId + ''}
-            onEndReached={() => this._getMessageList(false)}
-            onEndReachedThreshold={0}
-          />
-        </View>
-        <View style={styles.messageInputViewStyle}>
-          {this._renderTyping()}
-          <MessageInput
-            onLeftPress={this._onPhotoAddPress}
-            onRightPress={this._onSendButtonPress}
-            textMessage={this.state.textMessage}
-            onChangeText={this._onTextMessageChanged}
-          />
-        </View>
-      </View>
+        <KeyboardAvoidingView style={styles.containerViewStyle}
+          behavior={'height', 'position', 'padding'}
+          keyboardVerticalOffset={80}
+          enabled
+          >
+          <Spinner visible={this.state.isLoading} />
+          <View style={styles.messageListViewStyle}>
+            <FlatList
+              ref={elem => this.flatList = elem}
+              renderItem={this._renderList}
+              data={this.props.list}
+              extraData={this.state}
+              keyExtractor={(item, index) => item.messageId + ''}
+              onEndReached={() => this._getMessageList(false)}
+              onEndReachedThreshold={0}
+            />
+          </View>
+          <View style={styles.messageInputViewStyle}>
+            {this._renderTyping()}
+            <MessageInput
+              onLeftPress={this._onPhotoAddPress}
+              onRightPress={this._onSendButtonPress}
+              textMessage={this.state.textMessage}
+              onChangeText={this._onTextMessageChanged}
+            />
+          </View>
+        </KeyboardAvoidingView>
     );
   }
 }
