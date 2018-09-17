@@ -1,7 +1,6 @@
 import SendBird from 'sendbird';
 
 
-
 export const sbGetChannelTitle = (channel) => {
     if (channel.isOpenChannel()) {
         return channel.name

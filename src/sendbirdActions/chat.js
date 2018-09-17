@@ -44,7 +44,7 @@ export const sbSendFileMessage = (channel, file, callback) => {
     const customType = '';
     const thumbSizeList = [{'maxWidth': 160, 'maxHeight': 160}];
     return channel.sendFileMessage(
-        file, data, customType, thumbSizeList, 
+        file, data, customType, thumbSizeList,
         (message, error) => { callback(message, error) }
     );
 }

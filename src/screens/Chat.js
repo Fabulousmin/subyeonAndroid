@@ -179,7 +179,7 @@ class Chat extends Component {
       if(response.photo === 'authorized') {
         ImagePicker.showImagePicker(
           {
-            title: "Select Image File To Send",
+            title: "이미지를 선택하세요",
             mediaType: "photo",
             noData: true
           },
@@ -221,9 +221,12 @@ class Chat extends Component {
 
   _renderFileMessageItem = rowData => {
     const message = rowData.item;
+    console.log('머가1',message.isUserMessage())
     if (message.isUserMessage()) {
       return <TextItem isUser={message.isUser} message={message.message} />;
     } else if (sbIsImageMessage(message)) {
+      console.log('실행???')
+      console.log('맞나??',message.url)
       return <ImageItem isUser={message.isUser} message={message.url.replace("http://", "https://")} />;
     } else {
       return <FileItem isUser={message.isUser} message={message.name} />;

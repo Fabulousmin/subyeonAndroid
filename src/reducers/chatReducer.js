@@ -1,4 +1,4 @@
-import { 
+import {
     INIT_CHAT_SCREEN,
     CREATE_CHAT_HANDLER_SUCCESS,
     CREATE_CHAT_HANDLER_FAIL,
@@ -36,7 +36,7 @@ const INITAL_STATE = {
 
 export default (state = INITAL_STATE, action) => {
     switch(action.type) {
-        case INIT_CHAT_SCREEN: 
+        case INIT_CHAT_SCREEN:
             return { ...state, ...INITAL_STATE };
         case CREATE_CHAT_HANDLER_SUCCESS:
             return { ...state }
@@ -62,14 +62,14 @@ export default (state = INITAL_STATE, action) => {
                 }
             })
             return { ...state, list: sendSuccessList }
-        case SEND_MESSAGE_FAIL: 
+        case SEND_MESSAGE_FAIL:
             const newChatList = state.list.slice(1);
             return { ...state, list: newChatList }
         case CHANNEL_EXIT_SUCCESS:
             return { ...state, exit: true };
         case CHANNEL_EXIT_FAIL:
             return { ...state, exit: false };
-        
+
         case MESSAGE_RECEIVED:
             return { ...state, list: [...[action.payload], ...state.list]}
         case MESSAGE_UPDATED:

@@ -230,6 +230,19 @@ class Menu extends Component {
       />)
     }
 
+    _renderConditionButton(){
+      return(<Button
+          containerViewStyle={styles.menuViewStyle}
+          buttonStyle={styles.buttonStyle}
+          backgroundColor='#fff'
+          color='#000000'
+          icon={{name: 'sign-out', type: 'font-awesome' , color: '#000000', size: 16}}
+          title='이용약관'
+          textStyle={{fontFamily:'BMHANNA11yrsold'}}
+          onPress={()=>this.props.navigation.navigate('Condition')}
+      />)
+    }
+
     _renderLocationPicker(){
       return(
         <Modal
@@ -336,11 +349,14 @@ class Menu extends Component {
                 <ScrollView>
                   {this._renderProfileImg()}
                   {this._renderList()}
+                  <View style={{height:25}}>
+                  <Text style={{fontSize:18,fontFamily:'BMHANNA11yrsold',color:'black'}}>  계정</Text>
+                  </View>
+                  {this._renderConditionButton()}
                   {this._renderLogoutButton()}
                   {this._renderLocationPicker()}
                   {this._renderNumberPicker()}
                 </ScrollView>
-
             </View>
         )
     }

@@ -7,15 +7,6 @@ const { width } = Dimensions.get('window');
 const MessageInput = (props) => {
     return (
         <View style={styles.containerStyle}>
-            <Icon
-                containerStyle={{marginLeft: 10}}
-                iconStyle={{margin: 0, padding: 0}}
-                name='plus'
-                type='font-awesome'
-                color={'#494e57'}
-                size={20}
-                onPress={props.onLeftPress}
-            />
             <View style={styles.inputViewStyle}>
                 <TextInput
                     style={{

@@ -23,6 +23,7 @@ import ProfileInit6 from './screens/ProfileInit6';
 import Start from './screens/Start';
 import Store from './screens/Store';
 import ChatSelection from './screens/ChatSelection';
+import Condition from './screens/Condition';
 
 import { StackNavigator, TabNavigator, SwitchNavigator } from 'react-navigation';
 
@@ -58,6 +59,7 @@ const MenuStack = StackNavigator({
   BlockUser: { screen: BlockUser },
   GroupChannel: { screen: GroupChannel },
   GroupChannelInvite: { screen: GroupChannelInvite },
+  Condition : { screen: Condition }
 }, {
   initialRouteName: 'Menu',
 
