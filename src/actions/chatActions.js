@@ -281,16 +281,16 @@ export const onFileButtonPress = (channelUrl, isOpenChannel, source) => {
     }
 }
 
-const sendFileMessage = (dispatch, channel, file) => {
-    const messageTemp = sbSendFileMessage(channel, file, (message, error) => {
-        if (error) {
-            dispatch({ type: SEND_MESSAGE_FAIL });
-            return;
+const sendFileMessage = (dispatch, channel, source) => {
+    const messageTemp = sbSendFileMessage(channel, source, (message, error) => {
+        if (message) {
+          dispatch({
+              type: SEND_MESSAGE_SUCCESS,
+              message: message
+          });
         } else {
-            dispatch({
-                type: SEND_MESSAGE_SUCCESS,
-                message: message
-            });
+          dispatch({ type: SEND_MESSAGE_FAIL });
+          return;
         }
     })
     dispatch({
