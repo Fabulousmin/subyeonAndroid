@@ -9,4 +9,6 @@ target 'ReactNativeWithSendBird' do
   pod 'Firebase/Messaging'
 
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 end

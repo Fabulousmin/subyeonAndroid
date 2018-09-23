@@ -4,8 +4,9 @@ import android.app.Application;
 
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
-import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import io.rnkit.alertview.AlertViewPackage;
+import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,6 +29,8 @@ public class MainApplication extends GlobalApplication implements ReactApplicati
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new VectorIconsPackage(),
+            new AlertViewPackage(),
         new RNKakaoLoginsPackage(),
         new VectorIconsPackage(),
         new FIRMessagingPackage(),

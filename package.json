@@ -1,6 +1,6 @@
 {
   "name": "ReactNativeWithSendBird",
-  "version": "0.1.2",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -13,13 +13,13 @@
     "crypto-js": "^3.1.9-1",
     "faker": "^4.1.0",
     "firebase": "^5.3.1",
-    "native-base": "^2.7.2",
-    "react": "^16.4.1",
-    "react-native": "0.55.3",
+    "native-base": "^2.8.0",
+    "react": "16.5.0",
+    "react-native": "0.57.0",
     "react-native-awesome-alert": "^0.4.0",
     "react-native-cache-image": "^1.0.0",
     "react-native-cached-image": "1.4.3",
-    "react-native-elements": "0.19.0",
+    "react-native-elements": "^0.19.1",
     "react-native-fcm": "16.0.0",
     "react-native-fetch-blob": "0.10.8",
     "react-native-image-picker": "0.26.7",
@@ -29,7 +29,7 @@
     "react-native-md-textinput": "2.0.4",
     "react-native-permissions": "1.1.1",
     "react-native-swipeout": "2.3.3",
-    "react-native-vector-icons": "4.5.0",
+    "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.2.1",
     "react-redux": "5.0.7",
     "redux": "3.7.2",
@@ -39,10 +39,11 @@
     "url-parse": "^1.4.3"
   },
   "devDependencies": {
-    "babel-jest": "23.4.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "23.4.1",
-    "react-test-renderer": "16.4.1"
+    "@babel/plugin-external-helpers": "^7.0.0",
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.45.4",
+    "react-test-renderer": "16.5.0"
   },
   "jest": {
     "preset": "react-native"
