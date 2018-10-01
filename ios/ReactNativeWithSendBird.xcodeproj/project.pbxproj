@@ -49,6 +49,8 @@
 		507AFEE74222490E93C7043A /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26B819F58862493385EDE5DB /* libRNKakaoLogins.a */; };
 		76ABFF8DFFF84DAEBACF092E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36CEF197D0FC426291F3671B /* Foundation.ttf */; };
 		7775894BEA884665929DF1B4 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4828EE72174D72A57BEDD6 /* FontAwesome.ttf */; };
+		79219C44215781850060CF96 /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79219C3F2157812D0060CF96 /* libRNIap.a */; };
+		79A182142157A84F00E6E565 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A182132157A84F00E6E565 /* StoreKit.framework */; };
 		79B5BB9B2118B66800335982 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B5BB9A2118B66800335982 /* KakaoOpenSDK.framework */; };
 		7E1387BF7DA5443EB65A0D6C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1035A1D452454714BC91EC60 /* MaterialIcons.ttf */; };
 		7FCC28073545402E95662EE2 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 088824A0D090421F8E920B92 /* Feather.ttf */; };
@@ -374,6 +376,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
+		79219C3E2157812D0060CF96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 79219C0F2157812D0060CF96 /* RNIap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNIap;
+		};
 		7929DB8D2157703E00F8D4BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BDBF274766154949975945E1 /* RNVectorIcons.xcodeproj */;
@@ -463,6 +472,8 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6924D01975B54D788D821B70 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		79219C0F2157812D0060CF96 /* RNIap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNIap.xcodeproj; path = "../node_modules/react-native-iap/ios/RNIap.xcodeproj"; sourceTree = "<group>"; };
+		79A182132157A84F00E6E565 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		79B5BB9A2118B66800335982 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		9CDF0119FB9D4277B9C061C6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -501,8 +512,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79219C44215781850060CF96 /* libRNIap.a in Frameworks */,
 				171E5AF220A43E7100C2038A /* libRCTPushNotification.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
+				79A182142157A84F00E6E565 /* StoreKit.framework in Frameworks */,
 				171E585220A1391400C2038A /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -722,6 +735,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				79A182132157A84F00E6E565 /* StoreKit.framework */,
 				79B5BB9A2118B66800335982 /* KakaoOpenSDK.framework */,
 				171E5A1720A1965700C2038A /* libReactNativePermissions.a */,
 				171E594120A16BCE00C2038A /* RNFIRMessaging.xcodeproj */,
@@ -757,6 +771,14 @@
 			children = (
 				78C398B91ACF4ADC00677621 /* libRCTLinking.a */,
 				3DAD3E881DF850E9000B6D8A /* libRCTLinking-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		79219C102157812D0060CF96 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				79219C3F2157812D0060CF96 /* libRNIap.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -798,6 +820,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				79219C0F2157812D0060CF96 /* RNIap.xcodeproj */,
 				171E5AE020A43E5C00C2038A /* RCTPushNotification.xcodeproj */,
 				171E5A2A20A1974C00C2038A /* ReactNativePermissions.xcodeproj */,
 				171E59CF20A1740B00C2038A /* RNImagePicker.xcodeproj */,
@@ -995,6 +1018,9 @@
 						DevelopmentTeam = BHTA94N8D2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1090,6 +1116,10 @@
 				{
 					ProductGroup = 171E594220A16BCE00C2038A /* Products */;
 					ProjectRef = 171E594120A16BCE00C2038A /* RNFIRMessaging.xcodeproj */;
+				},
+				{
+					ProductGroup = 79219C102157812D0060CF96 /* Products */;
+					ProjectRef = 79219C0F2157812D0060CF96 /* RNIap.xcodeproj */;
 				},
 				{
 					ProductGroup = 171E59D020A1740B00C2038A /* Products */;
@@ -1411,6 +1441,13 @@
 			fileType = archive.ar;
 			path = libRCTLinking.a;
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		79219C3F2157812D0060CF96 /* libRNIap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNIap.a;
+			remoteRef = 79219C3E2157812D0060CF96 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7929DB8E2157703E00F8D4BE /* libRNVectorIcons.a */ = {

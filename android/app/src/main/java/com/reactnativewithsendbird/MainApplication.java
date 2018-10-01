@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactApplication;
+import com.dooboolab.RNIap.RNIapPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import io.rnkit.alertview.AlertViewPackage;
 import com.dooboolab.kakaologins.RNKakaoLoginsPackage;
@@ -14,7 +15,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.dooboolab.kakaologins.GlobalApplication;
-
+import com.dooboolab.RNIap.RNIapPackage;
 import java.util.Arrays;
 import java.util.List;
 public class MainApplication extends GlobalApplication implements ReactApplication {
@@ -29,10 +30,10 @@ public class MainApplication extends GlobalApplication implements ReactApplicati
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new RNIapPackage(),
             new VectorIconsPackage(),
             new AlertViewPackage(),
         new RNKakaoLoginsPackage(),
-        new VectorIconsPackage(),
         new FIRMessagingPackage(),
         new ImagePickerPackage(),
         new RNFetchBlobPackage()
