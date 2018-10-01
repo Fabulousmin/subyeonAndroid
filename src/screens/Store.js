@@ -11,7 +11,7 @@ import { ListItem, Divider, Button, Text } from 'react-native-elements'
 import NativeButton from 'apsl-react-native-button';
 import { connect } from 'react-redux';
 import { initHeart, getHeart, updateHeart } from '../actions';
-import { SHeader } from '../components';
+import { SHeader, Spinner } from '../components';
 import * as RNIap from 'react-native-iap';
 
 
@@ -78,25 +78,25 @@ class Store extends Component {
     productList: [],
     receipt: '',
     availableItemsMessage: '',
+    progressTitle:'',
+    isLoading:false
   }
 
 
   async componentDidMount() {
+    this.setState({isLoading: true});
     try {
     const result = await RNIap.initConnection();
     this.getItems();
-    console.log('result', result);
+    this.setState({isLoading: false});
   } catch (err) {
     console.warn(err.code, err.message);
   }
-
 
     this.props.initHeart();
     this.setState( () => { this.props.getHeart();});
 
   }
-
-
 
   componentWillReceiveProps(props) {
     const { error , heart } = props;
@@ -104,12 +104,6 @@ class Store extends Component {
       this.setState({heart: heart});
       console.log(this.props.navigation.state)
     }
-  }
-
-  goToNext = () => {
-    this.props.navigation.navigate('Second', {
-      receipt: this.state.receipt,
-    });
   }
 
   getItems = async() => {
@@ -123,16 +117,20 @@ class Store extends Component {
   }
 
   buyItem = async(sku) => {
-    try {
-      console.info('buyItem: ' + sku);
-      // const purchase = await RNIap.buyProduct(sku);
-      const purchase = await RNIap.buyProductWithoutFinishTransaction(sku);
-      console.info(purchase);
-      this.setState({ receipt: purchase.transactionReceipt }, () => this.goToNext());
-    } catch (err) {
-      console.warn(err.code, err.message);
-      Alert.alert(err.message);
-    }
+    RNIap.buyProduct(sku).then(purchase => {
+    const heart = sku.replace(/[^0-9]/g,'');
+    this.setState({
+      receipt: purchase.transactionReceipt, // save the receipt if you need it, whether locally, or to your server.
+      progressTitle: 'Purchase Successful!',
+    },
+    this.onButtonBuyHeart(heart)
+  );
+  }).catch(err => {
+    // resetting UI
+    console.warn(err); // standardized err.code and err.message available
+    this.setState({ progressTitle: 'Buy 100 Coins for only $0.99' });
+    alert(err.message);
+  })
   }
 
   getAvailablePurchases = async() => {
@@ -167,53 +165,25 @@ class Store extends Component {
           onRightPress={()=>this.props.navigation.navigate('MenuStack')}
           heart={this.state.heart}
         />
+        <Spinner visible={this.state.isLoading}/>
         <ScrollView>
           <View style={styles.divider}>
             <Text style={{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF',fontSize:17}}>매시지를 보내려면 하트가 필요해요</Text>
           </View>
           {
-          list.map((item, i) => (
+          productList.map((item, i) => (
           <ListItem
             key={i}
             leftIcon={{type:'font-awesome', name: 'heart', color:'#74b9ff'}}
-            title={item.name}
+            title={item.title}
             titleStyle={{fontFamily:'BMHANNA11yrsold',fontSize: 17}}
             containerStyle={{paddingTop: 20, paddingBottom: 20, paddingLeft:10, borderBottomColor: '#dfe6e9'}}
-            badge={{ element: item.element }}
+            badge={{ element: renderRightButton(item.price) }}
             hideChevron
-            onPress={async () => {this.onButtonBuyHeart(item.heart)}}
+            onPress={() => {this.buyItem(item.productId)}}
           />
         ))
         }
-
-        <NativeButton
-              onPress={() => this.getItems()}
-              activeOpacity={0.5}
-              style={styles.btn}
-              textStyle={styles.txt}
-            >Get Products ({productList.length})</NativeButton>
-            {
-              productList.map((product, i) => {
-                return (
-                  <View key={i} style={{
-                    flexDirection: 'column',
-                  }}>
-                    <Text style={{
-                      marginTop: 20,
-                      fontSize: 12,
-                      color: 'black',
-                      alignSelf: 'center',
-                    }} >{JSON.stringify(product)}</Text>
-                    <NativeButton
-                      onPress={() => this.buyItem(product.productId)}
-                      activeOpacity={0.5}
-                      style={styles.btn}
-                      textStyle={styles.txt}
-                    >Buy Above Product</NativeButton>
-                  </View>
-                );
-              })
-            }
 
       </ScrollView>
     </View>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { Text, Button, Header, FormLabel, FormInput, FormValidationMessage, Icon } from 'react-native-elements';
 import firebase from '@firebase/app';
@@ -36,11 +37,15 @@ export default class Forgot extends Component {
     return (
       <View style={styles.container}>
         <Header
-          leftComponent={<Icon
-            name= 'clear'
-            color='#8395a7'
-            onPress={() => this.props.navigation.goBack()}
-          />}
+          leftComponent={
+            <TouchableOpacity
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon
+              name= 'clear'
+              color='#8395a7'
+            />
+            </TouchableOpacity>
+            }
           outerContainerStyles={{ borderBottomWidth: 0 }}
           backgroundColor='transparent'
         />

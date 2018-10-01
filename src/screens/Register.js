@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, AsyncStorage, KeyboardAvoidingView,Alert } from 'react-native';
+import { View, Image, AsyncStorage, KeyboardAvoidingView, Alert, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage, Button, Text, Header, Icon } from 'react-native-elements'
 import { initregister, userRegister, getCurrentUserInfo } from '../actions';
@@ -144,11 +144,14 @@ class Register extends Component {
               enabled>
               <Spinner visible={this.state.isLoading}/>
               <Header
-                leftComponent={<Icon
-                  name= 'clear'
-                  color='#8395a7'
-                  onPress={() => this.props.navigation.goBack()}
-                />}
+                leftComponent={
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                  <Icon
+                    name= 'clear'
+                    color='#8395a7'
+                  />
+                </TouchableOpacity>
+              }
                 outerContainerStyles={{ borderBottomWidth: 0 }}
                 backgroundColor='transparent'
               />

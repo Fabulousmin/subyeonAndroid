@@ -29,6 +29,7 @@ class Login extends Component {
       componentWillReceiveProps(props) {
           let { user, error, userInfo } = props;
           if (user) {
+              this.setState({isLoading: false});
               AsyncStorage.getItem('pushToken', (err, pushToken) => {
                   if (pushToken) {
                       sbRegisterPushToken(pushToken)
@@ -111,6 +112,7 @@ class Login extends Component {
         return (
           <KeyboardAvoidingView
               style={styles.containerStyle}
+              keyboardVerticalOffset={0}
               behavior="padding"
               enabled
           >
@@ -126,13 +128,13 @@ class Login extends Component {
                     title='비밀번호 찾기'
                     backgroundColor='transparent'
                     onPress={() => this.props.navigation.navigate('Forgot')}
-                    style={{width:110}}
+                    style={{width:115}}
                   />
                 </View>
                 <View style={styles.logoContainer}>
                     <Image
-                        style={{ width: 150, height: 150 }}
-                        source={require('../img/logo1.gif')}
+                        style={{ width: 180, height: 180 }}
+                        source={require('../img/logo.png')}
                     />
                 </View>
 
@@ -176,7 +178,7 @@ class Login extends Component {
                       />
                       <Button
                         title='로그인'
-                        style={{marginTop:10}}
+                        style={{marginTop:20}}
                         textStyle={{fontFamily:'BMHANNA11yrsold',fontSize:20}}
                         icon={{name:'ios-log-in', color:'black' , type: 'ionicon'}}
                         backgroundColor='#54a0ff'

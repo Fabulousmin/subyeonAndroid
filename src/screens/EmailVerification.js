@@ -2,22 +2,37 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Text, Button, Header, Icon,FormLabel, FormValidationMessage } from 'react-native-elements'
-import firebase from '@firebase/app'
+import { sbUnregisterPushToken } from '../sendbirdActions';
+import { sendbirdLogout, initMenu, fbLogOut} from '../actions';
+import { components } from '../components';
+import firebase from '@firebase/app';
 
 
-export default class EmailVerification extends Component {
+class EmailVerification extends Component {
 
   state = {
     email:'',
     message:'',
+    isLoading:false
   }
 
   componentDidMount() {
     const currentUser = firebase.auth().currentUser;
+    this.props.initMenu();
     console.log(currentUser.email);
     this.setState({email: currentUser.email});
+    this.props.initMenu;
+  }
+  componentWillReceiveProps(props){
+    const { isDisconnected } = props;
+    if(isDisconnected){
+      this.setState({isLoading: false});
+      this.setState(() => {this.props.navigation.navigate('Start')})
+    }
   }
 
   onSendVerificationPressed(){
@@ -31,15 +46,23 @@ export default class EmailVerification extends Component {
     }.bind(this));
   }
 
+  onLogoutPressed(){
+        this.setState({isLoading: true});
+        this.props.fbLogOut();
+    }
+
   render() {
     return (
       <View style={styles.container}>
         <Header
-          leftComponent={<Icon
-            name= 'clear'
-            color='#8395a7'
-            onPress={() => this.props.navigation.goBack()}
-          />}
+          leftComponent={
+            <TouchableOpacity onPress={() => this.onLogoutPressed()}>
+              <Icon
+              name= 'clear'
+              color='#8395a7'
+            />
+            </TouchableOpacity>
+          }
           outerContainerStyles={{ borderBottomWidth: 0 }}
           backgroundColor='transparent'
         />
@@ -48,7 +71,10 @@ export default class EmailVerification extends Component {
           <Text style={styles.subtitle}>이메일 인증을 완료해주세요.</Text>
         </View>
         <View style={styles.formContainer}>
-          <FormLabel>'{this.state.email}' 로 인증메일을 전송합니다.</FormLabel>
+          <FormLabel>'{this.state.email}' 로 인증메일을 전송합니다.
+            이메일 인증 후 뒤로가기 버튼을 눌러 다시 로그인해주세요.
+          </FormLabel>
+
           <FormValidationMessage>
             {this.state.message}
           </FormValidationMessage>
@@ -64,6 +90,13 @@ export default class EmailVerification extends Component {
     );
   }
 }
+
+function mapStateToProps({ menu }){
+    const { isDisconnected } = menu;
+    return { isDisconnected };
+};
+
+export default connect(mapStateToProps, { initMenu, fbLogOut })(EmailVerification);
 
 const styles = StyleSheet.create({
   container: {

@@ -97,9 +97,8 @@ class Menu extends Component {
                 .then(res => {
                     this.props.fbLogOut();
                     this.props.sendbirdLogout();
-                    console.log('')
+                    this.setState({isLoading:false});
                 })
-               .catch(err => {});
         });
     }
 

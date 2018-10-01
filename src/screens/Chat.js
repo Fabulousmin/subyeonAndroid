@@ -274,7 +274,7 @@ class Chat extends Component {
     return (
         <KeyboardAvoidingView style={styles.containerViewStyle}
           behavior={'height', 'position', 'padding'}
-          keyboardVerticalOffset={80}
+          keyboardVerticalOffset={36}
           enabled
           >
           <Spinner visible={this.state.isLoading} />

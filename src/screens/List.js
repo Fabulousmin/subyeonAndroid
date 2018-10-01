@@ -284,7 +284,6 @@ class List extends Component {
         />
         {this.renderFlatList()}
         {this._OpenChatting()}
-
       </View>
     );
   }

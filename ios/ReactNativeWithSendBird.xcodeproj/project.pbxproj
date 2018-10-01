@@ -50,6 +50,7 @@
 		76ABFF8DFFF84DAEBACF092E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36CEF197D0FC426291F3671B /* Foundation.ttf */; };
 		7775894BEA884665929DF1B4 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4828EE72174D72A57BEDD6 /* FontAwesome.ttf */; };
 		79219C44215781850060CF96 /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79219C3F2157812D0060CF96 /* libRNIap.a */; };
+		793CCFE221622A5E00313031 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 793CCFE121622A5E00313031 /* libGoogleToolboxForMac.a */; };
 		79A182142157A84F00E6E565 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A182132157A84F00E6E565 /* StoreKit.framework */; };
 		79B5BB9B2118B66800335982 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B5BB9A2118B66800335982 /* KakaoOpenSDK.framework */; };
 		7E1387BF7DA5443EB65A0D6C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1035A1D452454714BC91EC60 /* MaterialIcons.ttf */; };
@@ -473,6 +474,7 @@
 		6924D01975B54D788D821B70 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		79219C0F2157812D0060CF96 /* RNIap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNIap.xcodeproj; path = "../node_modules/react-native-iap/ios/RNIap.xcodeproj"; sourceTree = "<group>"; };
+		793CCFE121622A5E00313031 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A182132157A84F00E6E565 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		79B5BB9A2118B66800335982 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793CCFE221622A5E00313031 /* libGoogleToolboxForMac.a in Frameworks */,
 				79219C44215781850060CF96 /* libRNIap.a in Frameworks */,
 				171E5AF220A43E7100C2038A /* libRCTPushNotification.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -735,6 +738,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				793CCFE121622A5E00313031 /* libGoogleToolboxForMac.a */,
 				79A182132157A84F00E6E565 /* StoreKit.framework */,
 				79B5BB9A2118B66800335982 /* KakaoOpenSDK.framework */,
 				171E5A1720A1965700C2038A /* libReactNativePermissions.a */,
@@ -1550,7 +1554,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export NODE_BIsNARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
