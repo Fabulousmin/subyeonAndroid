@@ -49,6 +49,7 @@
 		507AFEE74222490E93C7043A /* libRNKakaoLogins.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26B819F58862493385EDE5DB /* libRNKakaoLogins.a */; };
 		76ABFF8DFFF84DAEBACF092E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36CEF197D0FC426291F3671B /* Foundation.ttf */; };
 		7775894BEA884665929DF1B4 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4828EE72174D72A57BEDD6 /* FontAwesome.ttf */; };
+		79021F7F216254F000B2B00B /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		79219C44215781850060CF96 /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79219C3F2157812D0060CF96 /* libRNIap.a */; };
 		793CCFE221622A5E00313031 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 793CCFE121622A5E00313031 /* libGoogleToolboxForMac.a */; };
 		79A182142157A84F00E6E565 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A182132157A84F00E6E565 /* StoreKit.framework */; };
@@ -1503,6 +1504,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79021F7F216254F000B2B00B /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				171E594B20A16E0C00C2038A /* GoogleService-Info.plist in Resources */,
