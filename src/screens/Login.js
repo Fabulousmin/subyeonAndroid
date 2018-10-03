@@ -39,6 +39,7 @@ class Login extends Component {
                       })
                   }
           if (error) {
+              console.log(error.code);
               this.setState({ isLoading: false, password:'', modal:error.code})
               this.props.initLogin();
           }
@@ -55,8 +56,6 @@ class Login extends Component {
 
     _onButtonPress = () => {
         const { userId, password } = this.state;
-        console.log('아이디',userId)
-        console.log('비번',password)
         if (userId=="" || password==""){
           return;
         }
@@ -93,6 +92,9 @@ class Login extends Component {
           message='존재하지 않는 계정입니다.'
           visible=true
           break
+        case 'auth/wrong-password':
+        message='비밀번호를 확인해주세요.'
+        visible=true
         default:
           meesage=''
           break

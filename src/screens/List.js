@@ -65,7 +65,6 @@ class List extends Component {
    }
 
    onCreateButtonPress = (sendId) => {
-     console.log('아이디아이디',sendId)
     const inviteUserIdList = [sendId]
     this.setState({inviteUserIdList:sendId})
     const arr=[];
@@ -166,7 +165,6 @@ class List extends Component {
       result = result /60
       result = Math.floor(result*10)/10
       result = Math.round(result)
-      console.log('결과보기',result)
 
       if(location ==='광안리'){
         if(result <5){

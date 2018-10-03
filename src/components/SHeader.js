@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Text, Header, Icon } from 'react-native-elements';
 
 const SHeader = (props) => {
@@ -10,7 +10,9 @@ const SHeader = (props) => {
     <Header
       leftComponent={
           <View style= {leftContainer}>
-            <Icon type='font-awesome' name='heart' color='white' size={20} onPress={props.onLeftPress}/>
+            <TouchableOpacity onPress={props.onRightPress}>
+              <Icon type='font-awesome' name='heart' color='white' size={20}/>
+            </TouchableOpacity>
             <Text style= {{fontFamily:'BMHANNA11yrsold',color:'#FFFFFF'}}>{props.heart}</Text>
           </View>
           }
@@ -20,9 +22,11 @@ const SHeader = (props) => {
         </View>
       }
       rightComponent={
-        <View style= {rightContainer}>
-          <Icon type='font-awesome' name='cog' color='white' onPress={props.onRightPress}/>
-        </View>
+      <View style= {rightContainer}>
+        <TouchableOpacity onPress={props.onLeftPress}>
+              <Icon type='font-awesome' name='cog' color='white'/>
+        </TouchableOpacity>
+      </View>
       }
       backgroundColor='#74b9ff'
     />

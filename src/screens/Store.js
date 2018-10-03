@@ -34,7 +34,7 @@ const renderRightButton = (dallars) => {
        style={{width:100, height:45, marginRight:15, borderWidth:1,  borderRadius: 10, borderColor: '#74b9ff'
        ,alignItems: 'center', justifyContent: 'center'
     }}>
-      <Text style={{fontFamily:'BMHANNA11yrsold',color: '#74b9ff', fontSize: 15}}>US{dallars}$</Text>
+      <Text style={{fontFamily:'BMHANNA11yrsold',color: '#74b9ff', fontSize: 15}}>{dallars}원</Text>
       </View>
   )
 }
@@ -116,20 +116,35 @@ class Store extends Component {
     }
   }
 
+  getHeartFromProductId= (productId) => {
+    switch(sku){
+      case 'com.reactnative.subyeon.heart20':
+        return 20;
+      case 'com.reactnative.subyeon.heart50':
+        return 50;
+      case 'com.reactnative.subyeon.heart100':
+        return 100;
+      case 'com.reactnative.subyeon.heart200':
+        return 200;
+      case 'com.reactnative.subyeon.heart500':
+        return 500;
+      default:
+        return;
+    }
+  }
+
   buyItem = async(sku) => {
     RNIap.buyProduct(sku).then(purchase => {
-    const heart = sku.replace(/[^0-9]/g,'');
+    const heart = this.getHeartFromSku(sku);
     this.setState({
       receipt: purchase.transactionReceipt, // save the receipt if you need it, whether locally, or to your server.
-      progressTitle: 'Purchase Successful!',
+      progressTitle: '결제가 완료되었습니다.',
     },
-    this.onButtonBuyHeart(heart)
   );
   }).catch(err => {
-    // resetting UI
     console.warn(err); // standardized err.code and err.message available
-    this.setState({ progressTitle: 'Buy 100 Coins for only $0.99' });
-    alert(err.message);
+    this.setState({ progressTitle: '결제 오류' });
+    alert(this.state.progressTitle);
   })
   }
 
